@@ -2,10 +2,12 @@ import datetime
 
 import cv2
 import imutils as imutils
+from matplotlib import pyplot as plt
 
 
 # load the image and resize it
 import numpy as np
+from imutils import feature
 
 image = cv2.imread("images/Machine-Learning-hero.jpg")
 image = imutils.resize(image, width=min(400, image.shape[1]))
@@ -41,3 +43,7 @@ def hog_compute(ims):
     ##########################
     hist = hog.compute(image,winStride,padding,locations)
     return np.float32(hist)
+
+def histogramVisualization(hist):
+    plt.hist(hist)
+    plt.show();
