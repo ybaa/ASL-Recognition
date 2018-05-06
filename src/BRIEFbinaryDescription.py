@@ -4,8 +4,6 @@ from skimage.color import rgb2gray
 def BRIEF_skimag(img):
     img1 = rgb2gray(img)
 
-    keypoints = []
-
     keypoints = corner_peaks(corner_harris(img1), min_distance=5)
 
     extractor = BRIEF()
