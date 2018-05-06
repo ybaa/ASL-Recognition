@@ -1,4 +1,4 @@
-from skimage import data, io
+from skimage import io
 from sklearn.svm import SVC
 from sklearn.externals import joblib
 
