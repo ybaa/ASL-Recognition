@@ -9,10 +9,10 @@ from matplotlib import pyplot as plt
 import numpy as np
 from imutils import feature
 
-image = cv2.imread("images/Machine-Learning-hero.jpg")
-image = imutils.resize(image, width=min(400, image.shape[1]))
+#image = cv2.imread("images/Machine-Learning-hero.jpg")
+#image = imutils.resize(image, width=min(400, image.shape[1]))
 
-def hog_compute(ims):
+def hog_compute(image):
     samples=[]
     winSize = (64,64)
     blockSize = (16,16)
