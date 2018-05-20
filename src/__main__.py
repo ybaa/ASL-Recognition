@@ -1,15 +1,19 @@
 from src.machineLearning.BriefLearning import BriefLerning
-# from src.machineLearning.ORBLearning import ORBLerning
+from src.machineLearning.ORBLearning import ORBLerning
 from src.machineLearning.CENSURELearning import CENSURELerning
+from src.machineLearning.Cv2ORBLearning import cv2ORBLerning
+from src.imagesOperations.ImagesCollectionLoader import ConcateHorizontalAndVertical
 
 if __name__ == '__main__':
 
-    BriefLerning("images/big", 'BriefDataSet')
-    print("Brief learning complete")
+    images = ConcateHorizontalAndVertical("images/big")
+
+    # BriefLerning(images, 'BriefDataSet')
+    # print("Brief learning complete")
     #
-    # ORBLerning("images/big", 'cv2ORBDataSet')
+    # ORBLerning(images, 'ORBDataSet')
     # print("ORB learning complete")
 
-    CENSURELerning("images/big", 'cv2ORBDataSet')
+    CENSURELerning(images, 'CENSUREDataSet')
     print("CENSURE learning complete")
 
