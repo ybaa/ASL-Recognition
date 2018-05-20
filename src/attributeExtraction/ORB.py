@@ -1,21 +1,14 @@
-import numpy as np
-import cv2
-from matplotlib import pyplot as plt
+from skimage.feature import ORB as skiORB
+from skimage.color import rgb2gray
+
 
 def ORB(img):
-    # Initiate STAR detector
-    orb = cv2.ORB_create()
+    img1 = rgb2gray(img)
 
-    # find the keypoints with ORB
-    keyPoints = orb.detect(img, None)
+    descriptor_extractor = skiORB(n_keypoints=200)
 
-    # compute the descriptors with ORB
-    keyPoints, des = orb.compute(img, keyPoints)
-    return keyPoints
+    descriptor_extractor.detect_and_extract(img1)
+    keypoints = descriptor_extractor.keypoints
+    descriptors = descriptor_extractor.descriptors
 
-def pictureFromORB(img):
-    # draw only keypoints location,not size and orientation
-    kp = ORB(img)
-    img2 = cv2.drawKeypoints(img, kp, None, color=(0, 255, 0), flags=0)
-
-    plt.imshow(img2), plt.show()
+    return keypoints
