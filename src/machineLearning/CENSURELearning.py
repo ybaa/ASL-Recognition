@@ -1,11 +1,11 @@
-from src.attributeExtraction.BRIEFbinaryDescription import BRIEF_skimag
+from src.attributeExtraction.CENSURE import CENSURE
 from src.machineLearning.MachineLearning import ReadImageCollection, MinimizeDataSet, GenearteKnowlageBase
 
-def BriefAttributeExtraction(images):
+def CENSUREAttributeExtraction(images):
     learnNames = []
     learnKeyPoints = []
     for image, file in zip(images, images.files):
-        keyPoints = BRIEF_skimag(image)
+        keyPoints = CENSURE(image)
         if len(keyPoints) > 0:
             x = []
             for point in keyPoints:
@@ -16,9 +16,9 @@ def BriefAttributeExtraction(images):
                 learnKeyPoints.append(x)
     return learnNames, learnKeyPoints
 
-def BriefLerning(srcFile,outputFiel):
-    outputFiel = 'BriefDataSet'
+def CENSURELerning(srcFile,outputFiel):
+    outputFiel = 'CENSUREDataSet'
     images = ReadImageCollection(srcFile)
-    learnNames, learnKeyPoints = BriefAttributeExtraction(images)
+    learnNames, learnKeyPoints = CENSUREAttributeExtraction(images)
     learnKeyPoints = MinimizeDataSet(learnKeyPoints)
     GenearteKnowlageBase(learnKeyPoints,learnNames,outputFiel)
