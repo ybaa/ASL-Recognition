@@ -1,11 +1,10 @@
-from skimage import io
-
 from sklearn.externals import joblib
 from sklearn.svm import SVC
-
+from src.imagesOperations.ImagesCollectionLoader import LoadImages
 
 def ReadImageCollection(srcFile):
-    return io.imread_collection(srcFile)
+    horizontalImages, verticalImages = LoadImages(srcFile)
+    return horizontalImages + verticalImages
 
 def MinimizeDataSet(learnKeyPoints):
     minSize = len(learnKeyPoints[0])
