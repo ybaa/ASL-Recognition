@@ -1,24 +1,25 @@
 from src.attributeExtraction.CENSURE import CENSURE
-from src.machineLearning.MachineLearning import ReadImageCollection, MinimizeDataSet, GenearteKnowlageBase
+from src.machineLearning.MachineLearning import MinimizeDataSet, GenearteKnowlageBase
+
 
 def CENSUREAttributeExtraction(images):
     learnNames = []
     learnKeyPoints = []
-    for image, file in zip(images, images.files):
-        keyPoints = CENSURE(image)
+    for image in images:
+        keyPoints = CENSURE(image[0])
         if len(keyPoints) > 0:
             x = []
             for point in keyPoints:
                 x.append(point[0])
                 x.append(point[1])
             if len(x) > 4:
-                learnNames.append(file[11])
+                learnNames.append(image[1])
                 learnKeyPoints.append(x)
     return learnNames, learnKeyPoints
 
-def CENSURELerning(srcFile,outputFiel):
-    outputFiel = 'CENSUREDataSet'
-    images = ReadImageCollection(srcFile)
+
+def CENSURELerning(images, outputFile):
+    outputFile = 'CENSUREDataSet'
     learnNames, learnKeyPoints = CENSUREAttributeExtraction(images)
     learnKeyPoints = MinimizeDataSet(learnKeyPoints)
-    GenearteKnowlageBase(learnKeyPoints,learnNames,outputFiel)
+    GenearteKnowlageBase(learnKeyPoints, learnNames, outputFile)

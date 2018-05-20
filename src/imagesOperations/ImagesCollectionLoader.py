@@ -25,5 +25,6 @@ def DevideToHorizontalAndVerticalCollections(images):
     return horizontalImages, verticalImages
 
 
-
-
+def ConcateHorizontalAndVertical(srcFile):
+    horizontalImages, verticalImages = LoadImages(srcFile)
+    return horizontalImages + verticalImages
