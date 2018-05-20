@@ -1,5 +1,5 @@
 from src.machineLearning.BriefLearning import BriefLerning
-from src.machineLearning.ORBLearning import cv2ORBLerning
+from src.machineLearning.ORBLearning import cv2ORBLerning, ORBLerning
 
 if __name__ == '__main__':
 
@@ -8,3 +8,6 @@ if __name__ == '__main__':
 
     cv2ORBLerning("images/big/*.jpg", 'cv2ORBDataSet')
     print("vc2 ORB learning complete")
+
+    ORBLerning("images/big/*.jpg", 'cv2ORBDataSet')
+    print("ORB learning complete")

@@ -1,6 +1,6 @@
 from src.attributeExtraction.BRIEFbinaryDescription import BRIEF_skimag
 from src.machineLearning.MachineLearning import ReadImageCollection, MinimizeDataSet, GenearteKnowlageBase
-
+import os
 
 def BriefAttributeExtraction(images):
     learnNames = []
@@ -18,7 +18,7 @@ def BriefAttributeExtraction(images):
     return learnNames, learnKeyPoints
 
 def BriefLerning(srcFile,outputFiel):
-    outputFiel = 'BriefORBDataSet'
+    outputFiel = 'BriefDataSet'
     images = ReadImageCollection(srcFile)
     learnNames, learnKeyPoints = BriefAttributeExtraction(images)
     learnKeyPoints = MinimizeDataSet(learnKeyPoints)
