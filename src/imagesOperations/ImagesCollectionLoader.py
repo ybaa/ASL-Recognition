@@ -30,6 +30,7 @@ def ConcateHorizontalAndVertical(srcFile):
     return horizontalImages + verticalImages
 
 
+#get all images with the same letter and devide it with given percentage
 def DevideImagesForTrainingAndTesting(inputSet, trainingPercent):
     trainingSet = []
     testingSet = []
