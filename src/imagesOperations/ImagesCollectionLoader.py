@@ -28,3 +28,27 @@ def DevideToHorizontalAndVerticalCollections(images):
 def ConcateHorizontalAndVertical(srcFile):
     horizontalImages, verticalImages = LoadImages(srcFile)
     return horizontalImages + verticalImages
+
+
+#get all images with the same letter and devide it with given percentage
+def DevideImagesForTrainingAndTesting(inputSet, trainingPercent):
+    trainingSet = []
+    testingSet = []
+    singleLetterSet = []
+
+    for i in range(len(inputSet)-1):
+        singleLetterSet.append(inputSet[i])
+        if inputSet[i][1] != inputSet[i+1][1]:
+            trainingPercentCounter = int(len(singleLetterSet) * trainingPercent)
+            for j in range(len(singleLetterSet)):
+                if j < trainingPercentCounter:
+                    trainingSet.append(singleLetterSet[j])
+                    if j == len(singleLetterSet) - 1:
+                        singleLetterSet.clear()
+                else:
+                    testingSet.append(singleLetterSet[j])
+                    if j == len(singleLetterSet)-1:
+                        singleLetterSet.clear()
+    return trainingSet, testingSet
+
+
