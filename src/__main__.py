@@ -9,7 +9,7 @@ if __name__ == '__main__':
     ORB_knowledge = Knowledge()
     BRIEF_knowledge = Knowledge()
     CENSURE_knowledge = Knowledge()
-    images = ConcateHorizontalAndVertical("images/smal")
+    images = ConcateHorizontalAndVertical("images/big")
 
     # BriefLerning(images, 'BriefDataSet')
     BRIEF_knowledge.__Learning__(__Brief_attribute_extraction__, images, 'BRIEF')

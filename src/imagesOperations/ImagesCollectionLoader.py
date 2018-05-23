@@ -17,10 +17,10 @@ def DevideToHorizontalAndVerticalCollections(images):
     for image, file in zip(images, images.files):
         if image.shape[0] > image.shape[1]:
             image = transform.resize(image, (480, 320))
-            horizontalImages.append((image, file[12]))
+            horizontalImages.append((image, file[11]))
         else:
             image = transform.resize(image, (320, 480))
-            verticalImages.append((image, file[12]))
+            verticalImages.append((image, file[11]))
 
     return horizontalImages, verticalImages
 
