@@ -25,7 +25,8 @@ class Knowledge:
     data_len = 0
 
     def __Learning__(self, extractor, images, output_file):
-        learnNames, learnKeyPoints = extractor(images)
+        self.Algorithm = extractor
+        learnNames, learnKeyPoints = self.Algorithm(images)
         self.__Generate_Knowledge_Base__(learnKeyPoints, learnNames, output_file)
 
     def __Generate_Knowledge_Base__(self, learn_key_points, learn_names, output_file):
@@ -56,13 +57,25 @@ class Knowledge:
         samples, nx, ny = learnKeyPointsArray.shape
         shortLearnKeyPoints = learnKeyPointsArray.reshape((samples, nx * ny))
         self.vectorClassifier.fit(shortLearnKeyPoints, learn_names)
-
         # save data set
-        with open('point' + output_file + '.pkl', "wb") as file:
+        self.__Save_data_set__(output_file)
+
+    def __Save_data_set__(self, algorithm_name):
+        with open('point' + algorithm_name + '.pkl', "wb") as file:
             joblib.dump(self.pointClassifier, file)
 
-        with open('classification' + output_file + '.pkl', "wb") as file:
+        with open('classification' + algorithm_name + '.pkl', "wb") as file:
             joblib.dump(self.classificationClassifier, file)
 
-        with open('vector' + output_file + '.pkl', "wb") as file:
+        with open('vector' + algorithm_name + '.pkl', "wb") as file:
             joblib.dump(self.vectorClassifier, file)
+
+    def __Load_data_set__(self, algorithm_name):
+        load_name = 'point' + algorithm_name + '.pkl'
+        self.pointClassifier = joblib.load(load_name)
+
+        load_name = 'classification' + algorithm_name + '.pkl'
+        self.classificationClassifier = joblib.load(load_name)
+
+        load_name = 'vector' + algorithm_name + '.pkl'
+        self.vectorClassifier = joblib.load(load_name)
