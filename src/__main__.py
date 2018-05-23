@@ -6,14 +6,14 @@ from src.imagesOperations.ImagesCollectionLoader import ConcateHorizontalAndVert
 
 if __name__ == '__main__':
 
-    images = ConcateHorizontalAndVertical("images/big")
+    images = ConcateHorizontalAndVertical("images/smal")
 
     # BriefLerning(images, 'BriefDataSet')
     # print("Brief learning complete")
     #
-    # ORBLerning(images, 'ORBDataSet')
-    # print("ORB learning complete")
+    ORBLerning(images, 'ORBDataSet')
+    print("ORB learning complete")
 
-    CENSURELerning(images, 'CENSUREDataSet')
-    print("CENSURE learning complete")
+    # CENSURELerning(images, 'CENSUREDataSet')
+    # print("CENSURE learning complete")
 

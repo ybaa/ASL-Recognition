@@ -1,5 +1,7 @@
 from sklearn.externals import joblib
 from sklearn.svm import SVC
+import numpy as np
+from src.machineLearning.AlphabetMonitor import AlphabetMonitor
 
 
 def MinimizeDataSet(learnKeyPoints):
@@ -17,8 +19,47 @@ def MinimizeDataSet(learnKeyPoints):
 
 
 def GenearteKnowlageBase(learnKeyPoints, learnNames, outputFile):
-    clf = SVC()
+    pointClassifier = SVC(kernel='rbf')
+    classificationClassifier = SVC(kernel='rbf')
+    vectorClassifier = SVC(kernel='rbf')
 
-    clf.fit(learnKeyPoints, learnNames)
-    with open(outputFile + '.pkl', "wb") as file:
-        joblib.dump(clf, file)
+    newPictures = []
+    newNames = []
+    for picture, name in zip(learnKeyPoints, learnNames):
+        for point in picture:
+            newName = (name + '.')[:-1]
+            newPictures.append(point)
+            newNames.append(newName)
+
+    pointClassifier.fit(newPictures, newNames)
+
+    # learnKeyPoints = MinimizeDataSet(learnKeyPoints)
+
+    names = AlphabetMonitor(learnNames)
+
+    newClassification = []
+    for picture in learnKeyPoints:
+        answers = []
+        for point in picture:
+            newPoint = [point]
+            answers.append(pointClassifier.predict(newPoint)[0])
+        newClassification.append(names.Monitoring(answers))
+
+    classificationClassifier.fit(newClassification, learnNames)
+
+    learnKeyPoints = MinimizeDataSet(learnKeyPoints)
+
+    learnKeyPointsArray = np.array(learnKeyPoints)
+    samples, nx, ny = learnKeyPointsArray.shape
+    learnKeyPoints = learnKeyPointsArray.reshape((samples, nx*ny))
+
+    vectorClassifier.fit(learnKeyPoints, learnNames)
+
+    with open('point' + outputFile + '.pkl', "wb") as file:
+        joblib.dump(pointClassifier, file)
+
+    with open('clasification' + outputFile + '.pkl', "wb") as file:
+        joblib.dump(classificationClassifier, file)
+
+    with open('vector' + outputFile + '.pkl', "wb") as file:
+        joblib.dump(vectorClassifier, file)
