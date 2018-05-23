@@ -11,12 +11,9 @@ class AlphabetMonitor:
                 self.alphabet.append(sign)
                 self.value.append(0)
 
-    def Monitoring(self, learned):
+    def __Monitoring__(self, learned):
         value = copy(self.value)
-        sum = len(learned)
         for learn in learned:
             index = self.alphabet.index(learn)
             value[index] += 1
-        for val in value:
-            val = val/sum
         return value

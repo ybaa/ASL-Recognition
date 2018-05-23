@@ -1,5 +1,5 @@
 from src.attributeExtraction.BRIEFbinaryDescription import BRIEF_skimag
-from src.machineLearning.MachineLearning import MinimizeDataSet, GenearteKnowlageBase
+# from src.machineLearning.MachineLearning import MinimizeDataSet, GenearteKnowlageBase
 
 def BriefAttributeExtraction(images):
     learnNames = []
@@ -19,5 +19,5 @@ def BriefAttributeExtraction(images):
 def BriefLerning(images, outputFile):
     outputFile = 'BriefDataSet'
     learnNames, learnKeyPoints = BriefAttributeExtraction(images)
-    learnKeyPoints = MinimizeDataSet(learnKeyPoints)
-    GenearteKnowlageBase(learnKeyPoints, learnNames, outputFile)
+    # learnKeyPoints = MinimizeDataSet(learnKeyPoints)
+    # GenearteKnowlageBase(learnKeyPoints, learnNames, outputFile)

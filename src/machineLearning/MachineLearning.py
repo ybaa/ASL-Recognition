@@ -4,62 +4,65 @@ import numpy as np
 from src.machineLearning.AlphabetMonitor import AlphabetMonitor
 
 
-def MinimizeDataSet(learnKeyPoints):
-    minSize = len(learnKeyPoints[0])
-    for points in learnKeyPoints:
+def __Minimize_Data_Set__(learn_key_points):
+    minSize = len(learn_key_points[0])
+    for points in learn_key_points:
         length = len(points)
         if minSize > length:
             minSize = length
 
     newLearnKeyPoints = []
-    for points in learnKeyPoints:
+    for points in learn_key_points:
         newLearnKeyPoints.append(points[:minSize])
 
     return newLearnKeyPoints
 
 
-def GenearteKnowlageBase(learnKeyPoints, learnNames, outputFile):
+class Knowledge:
     pointClassifier = SVC(kernel='rbf')
     classificationClassifier = SVC(kernel='rbf')
     vectorClassifier = SVC(kernel='rbf')
+    data_len = 0
 
-    newPictures = []
-    newNames = []
-    for picture, name in zip(learnKeyPoints, learnNames):
-        for point in picture:
-            newName = (name + '.')[:-1]
-            newPictures.append(point)
-            newNames.append(newName)
+    def __Learning__(self, extractor, images, output_file):
+        learnNames, learnKeyPoints = extractor(images)
+        self.__Generate_Knowledge_Base__(learnKeyPoints, learnNames, output_file)
 
-    pointClassifier.fit(newPictures, newNames)
+    def __Generate_Knowledge_Base__(self, learn_key_points, learn_names, output_file):
+        # learning point by point
+        newPictures = []
+        newNames = []
+        for picture, name in zip(learn_key_points, learn_names):
+            for point in picture:
+                newName = (name + '.')[:-1]
+                newPictures.append(point)
+                newNames.append(newName)
+        self.pointClassifier.fit(newPictures, newNames)
 
-    # learnKeyPoints = MinimizeDataSet(learnKeyPoints)
+        # learning by answers from points
+        names = AlphabetMonitor(learn_names)
+        newClassification = []
+        for picture in learn_key_points:
+            answers = []
+            for point in picture:
+                newPoint = [point]
+                answers.append(self.pointClassifier.predict(newPoint)[0])
+            newClassification.append(names.__Monitoring__(answers))
+        self.classificationClassifier.fit(newClassification, learn_names)
 
-    names = AlphabetMonitor(learnNames)
+        # learning by shortcuts of input
+        shortLearnKeyPoints = __Minimize_Data_Set__(learn_key_points)
+        learnKeyPointsArray = np.array(shortLearnKeyPoints)
+        samples, nx, ny = learnKeyPointsArray.shape
+        shortLearnKeyPoints = learnKeyPointsArray.reshape((samples, nx * ny))
+        self.vectorClassifier.fit(shortLearnKeyPoints, learn_names)
 
-    newClassification = []
-    for picture in learnKeyPoints:
-        answers = []
-        for point in picture:
-            newPoint = [point]
-            answers.append(pointClassifier.predict(newPoint)[0])
-        newClassification.append(names.Monitoring(answers))
+        # save data set
+        with open('point' + output_file + '.pkl', "wb") as file:
+            joblib.dump(self.pointClassifier, file)
 
-    classificationClassifier.fit(newClassification, learnNames)
+        with open('classification' + output_file + '.pkl', "wb") as file:
+            joblib.dump(self.classificationClassifier, file)
 
-    learnKeyPoints = MinimizeDataSet(learnKeyPoints)
-
-    learnKeyPointsArray = np.array(learnKeyPoints)
-    samples, nx, ny = learnKeyPointsArray.shape
-    learnKeyPoints = learnKeyPointsArray.reshape((samples, nx*ny))
-
-    vectorClassifier.fit(learnKeyPoints, learnNames)
-
-    with open('point' + outputFile + '.pkl', "wb") as file:
-        joblib.dump(pointClassifier, file)
-
-    with open('clasification' + outputFile + '.pkl', "wb") as file:
-        joblib.dump(classificationClassifier, file)
-
-    with open('vector' + outputFile + '.pkl', "wb") as file:
-        joblib.dump(vectorClassifier, file)
+        with open('vector' + output_file + '.pkl', "wb") as file:
+            joblib.dump(self.vectorClassifier, file)
