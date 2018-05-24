@@ -6,6 +6,8 @@ class AlphabetMonitor:
     value = []
 
     def __init__(self, signs):
+        self.alphabet = []
+        self.value = []
         for sign in signs:
             if not sign in self.alphabet:
                 self.alphabet.append(sign)

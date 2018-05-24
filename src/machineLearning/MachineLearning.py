@@ -20,15 +20,19 @@ def __Minimize_Data_Set__(learn_key_points):
 
 
 class Knowledge:
-    pointClassifier = SVC(kernel='rbf')
-    classificationClassifier = SVC(kernel='rbf')
-    vectorClassifier = SVC(kernel='rbf')
+    pointClassifier = None
+    classificationClassifier = None
+    vectorClassifier = None
     data_len = 0
-    AlgorithmManager = Extractor()
+    AlgorithmManager = None
     names = None
 
     def __init__(self, manager):
         self.AlgorithmManager = manager
+        self.pointClassifier = SVC(kernel='rbf')
+        self.classificationClassifier = SVC(kernel='rbf')
+        self.vectorClassifier = SVC(kernel='rbf')
+        self.data_len = 0
 
     def __Learning__(self, images, output_file):
         learnNames, learnKeyPoints = self.AlgorithmManager.__Collection_Extractor__(images)
@@ -101,20 +105,21 @@ class Knowledge:
         pointAnswer = ''
         combineAnswer = ''
         vectorAnswer = ''
-        if points or combine:
-            answers = []
-            for point in key_Points:
-                point = [point]
-                answers.append(self.pointClassifier.predict(point))
-            countedAnswers = self.names.__Monitoring__(answers)
-            pointAnswer = self.names.alphabet[countedAnswers.index(max(countedAnswers))]
-            if combine:
-                combineAnswer = self.classificationClassifier.predict([countedAnswers])
-        if vector and (len(key_Points) >= self.data_len):
-            key_Points = [key_Points[:self.data_len]]
-            learnKeyPointsArray = np.array(key_Points)
-            samples, nx, ny = learnKeyPointsArray.shape
-            key_Points = learnKeyPointsArray.reshape((samples, nx * ny))
-            vectorAnswer = self.vectorClassifier.predict(key_Points)
+        if key_Points is not None:
+            if points or combine:
+                answers = []
+                for point in key_Points:
+                    point = [point]
+                    answers.append(self.pointClassifier.predict(point))
+                countedAnswers = self.names.__Monitoring__(answers)
+                pointAnswer = self.names.alphabet[countedAnswers.index(max(countedAnswers))]
+                if combine:
+                    combineAnswer = self.classificationClassifier.predict([countedAnswers])
+            if vector and (len(key_Points) >= self.data_len):
+                key_Points = [key_Points[:self.data_len]]
+                learnKeyPointsArray = np.array(key_Points)
+                samples, nx, ny = learnKeyPointsArray.shape
+                key_Points = learnKeyPointsArray.reshape((samples, nx * ny))
+                vectorAnswer = self.vectorClassifier.predict(key_Points)
 
         return pointAnswer, combineAnswer, vectorAnswer

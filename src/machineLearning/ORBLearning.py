@@ -5,13 +5,6 @@ from src.machineLearning.Learner import Extractor
 class ORB_Extractor(Extractor):
 
     def __Collection_Extractor__(self, images):
-        return self.__ORB_attribute_extraction__(images)
-
-    def __Individual_Extraction__(self, image):
-        return ORB(image)
-
-
-    def __ORB_attribute_extraction__(self, images):
         learnNames = []
         learnKeyPoints = []
         for image in images:
@@ -23,3 +16,6 @@ class ORB_Extractor(Extractor):
                 learnNames.append(image[1])
                 learnKeyPoints.append(x)
         return learnNames, learnKeyPoints
+
+    def __Individual_Extraction__(self, image):
+        return ORB(image)
