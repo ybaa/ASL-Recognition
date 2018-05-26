@@ -27,19 +27,20 @@ class Knowledge:
     AlgorithmManager = None
     names = None
 
-    def __init__(self, manager):
+    def __init__(self, manager, name):
         self.AlgorithmManager = manager
         self.pointClassifier = SVC(kernel='rbf')
         self.classificationClassifier = SVC(kernel='rbf')
         self.vectorClassifier = SVC(kernel='rbf')
         self.data_len = 0
+        self.algorithm = name
 
-    def __Learning__(self, images, output_file):
+    def __Learning__(self, images):
         learnNames, learnKeyPoints = self.AlgorithmManager.__Collection_Extractor__(images)
         self.names = AlphabetMonitor(learnNames)
-        self.__Generate_Knowledge_Base__(learnKeyPoints, learnNames, output_file)
+        self.__Generate_Knowledge_Base__(learnKeyPoints, learnNames)
 
-    def __Generate_Knowledge_Base__(self, learn_key_points, learn_names, output_file):
+    def __Generate_Knowledge_Base__(self, learn_key_points, learn_names):
         # learning point by point
         newPictures = []
         newNames = []
@@ -67,25 +68,27 @@ class Knowledge:
         samples, nx, ny = learnKeyPointsArray.shape
         shortLearnKeyPoints = learnKeyPointsArray.reshape((samples, nx * ny))
         self.vectorClassifier.fit(shortLearnKeyPoints, learn_names)
-        # save data set
-        self.__Save_data_set__(output_file)
-        self.__Save__(output_file)
 
-    def __Save_data_set__(self, algorithm_name):
-        with open('point' + algorithm_name + '.pkl', "wb") as file:
+        # save data set
+        self.__Save_data_set__()
+        # self.__Save__()
+
+    def __Save_data_set__(self,):
+        with open('point' + self.algorithm + '.pkl', "wb") as file:
             joblib.dump(self.pointClassifier, file)
 
-        with open('classification' + algorithm_name + '.pkl', "wb") as file:
+        with open('classification' + self.algorithm + '.pkl', "wb") as file:
             joblib.dump(self.classificationClassifier, file)
 
-        with open('vector' + algorithm_name + '.pkl', "wb") as file:
+        with open('vector' + self.algorithm + '.pkl', "wb") as file:
             joblib.dump(self.vectorClassifier, file)
 
     def __Save__(self, algorithm_name):
         with open(algorithm_name + '.pkl', "wb") as file:
             joblib.dump(self.names, file)
 
-    def __Load_data_set__(self, algorithm_name):
+    def __Load_data_set__(self):
+        algorithm_name = self.algorithm
         load_name = 'point' + algorithm_name + '.pkl'
         self.pointClassifier = joblib.load(load_name)
 

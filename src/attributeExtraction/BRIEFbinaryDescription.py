@@ -6,9 +6,8 @@ def BRIEF_skimag(img):
 
     keypoints = corner_peaks(corner_harris(img1), min_distance=5)
 
-    extractor = BRIEF()
+    extractor = BRIEF(patch_size=5)
 
     extractor.extract(img1, keypoints)
     keypoints = keypoints[extractor.mask]
-    descriptors = extractor.descriptors
     return  keypoints
