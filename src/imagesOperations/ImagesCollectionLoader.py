@@ -18,7 +18,7 @@ def DevideToHorizontalAndVerticalCollections(images, gaussianParams, laplacePara
         if image.shape[0] > image.shape[1]:
             image = transform.resize(image, (480, 320))
             if laplaceParams['doLaplace']:
-                image = filters.laplace(image, ksize=3, mask=None)
+                image = filters.laplace(image, laplaceParams['ksize'], laplaceParams['mask'])
 
             if gaussianParams['doGaussian']:
                 image = filters.gaussian(image,
@@ -34,7 +34,7 @@ def DevideToHorizontalAndVerticalCollections(images, gaussianParams, laplacePara
         else:
             image = transform.resize(image, (320, 480))
             if laplaceParams['doLaplace']:
-                image = filters.laplace(image, ksize=3, mask=None)
+                image = filters.laplace(image, laplaceParams['ksize'], laplaceParams['mask'])
             if gaussianParams['doGaussian']:
                 image = filters.gaussian(image,
                                  gaussianParams['sigma'],
