@@ -1,7 +1,31 @@
 from src.attributeExtraction.BRIEFbinaryDescription import BRIEF_skimag
-from src.machineLearning.MachineLearning import MinimizeDataSet, GenearteKnowlageBase
+from src.machineLearning.Learner import Extractor
 
-def BriefAttributeExtraction(images):
+
+class Brief_Extractor(Extractor):
+
+    def __Collection_Extractor__(self, images):
+        learnNames = []
+        learnKeyPoints = []
+        for image in images:
+            keyPoints = BRIEF_skimag(image[0])
+            if len(keyPoints) > 0:
+                x = []
+                for point in keyPoints:
+                    x.append(point)
+                if len(x) > 4:
+                    learnNames.append(image[1])
+                    learnKeyPoints.append(x)
+        return learnNames, learnKeyPoints
+
+    def __Individual_Extraction__(self, image):
+        keyPoints = BRIEF_skimag(image[0])
+        if len(keyPoints) > 0:
+            return keyPoints
+        else:
+            return None
+
+def __Brief_attribute_extraction__(images):
     learnNames = []
     learnKeyPoints = []
     for image in images:
@@ -9,15 +33,8 @@ def BriefAttributeExtraction(images):
         if len(keyPoints) > 0:
             x = []
             for point in keyPoints:
-                x.append(point[0])
-                x.append(point[1])
+                x.append(point)
             if len(x) > 4:
                 learnNames.append(image[1])
                 learnKeyPoints.append(x)
     return learnNames, learnKeyPoints
-
-def BriefLerning(images, outputFile):
-    outputFile = 'BriefDataSet'
-    learnNames, learnKeyPoints = BriefAttributeExtraction(images)
-    learnKeyPoints = MinimizeDataSet(learnKeyPoints)
-    GenearteKnowlageBase(learnKeyPoints, learnNames, outputFile)

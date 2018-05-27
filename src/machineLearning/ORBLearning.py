@@ -1,23 +1,21 @@
 from src.attributeExtraction.ORB import ORB
-from src.machineLearning.MachineLearning import MinimizeDataSet, GenearteKnowlageBase
-
-def ORBAttributeExtraction(images):
-    learnNames = []
-    learnKeyPoints = []
-    for image in images:
-        keyPoints = ORB(image[0])
-        x = []
-        for point in keyPoints:
-            x.append(point[0])
-            x.append(point[1])
-        if len(x)>100:
-            learnNames.append(image[1])
-            learnKeyPoints.append(x)
-    return learnNames, learnKeyPoints
+from src.machineLearning.Learner import Extractor
 
 
-def ORBLerning(images, outputFile):
-    outputFile = 'ORBDataSet'
-    learnNames, learnKeyPoints = ORBAttributeExtraction(images)
-    learnKeyPoints = MinimizeDataSet(learnKeyPoints)
-    GenearteKnowlageBase(learnKeyPoints, learnNames, outputFile)
+class ORB_Extractor(Extractor):
+
+    def __Collection_Extractor__(self, images):
+        learnNames = []
+        learnKeyPoints = []
+        for image in images:
+            keyPoints = ORB(image[0])
+            x = []
+            for point in keyPoints:
+                x.append(point)
+            if len(x) > 100:
+                learnNames.append(image[1])
+                learnKeyPoints.append(x)
+        return learnNames, learnKeyPoints
+
+    def __Individual_Extraction__(self, image):
+        return ORB(image)
