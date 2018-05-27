@@ -2,22 +2,22 @@ from skimage import transform, novice, color, io, filters
 import os
 
 
-def LoadImages(dirName, doGaussianlur, gaussianParams):
+def LoadImages(dirName, gaussianParams):
     images = LoadCollectionFromDir(dirName)
-    horizontalImages, verticalImages = DevideToHorizontalAndVerticalCollections(images, doGaussianlur, gaussianParams)
+    horizontalImages, verticalImages = DevideToHorizontalAndVerticalCollections(images, gaussianParams)
     return horizontalImages, verticalImages
 
 
 def LoadCollectionFromDir(dirName):
     return io.imread_collection(dirName + "/*.jpg")
 
-def DevideToHorizontalAndVerticalCollections(images, doGaussianBlur, gaussianParams):
+def DevideToHorizontalAndVerticalCollections(images, gaussianParams):
     horizontalImages = []
     verticalImages = []
     for image, file in zip(images, images.files):
         if image.shape[0] > image.shape[1]:
             image = transform.resize(image, (480, 320))
-            if(doGaussianBlur):
+            if(gaussianParams['doGaussian']):
                 filters.gaussian(image,
                                  gaussianParams['sigma'],
                                  gaussianParams['output'],
@@ -29,7 +29,7 @@ def DevideToHorizontalAndVerticalCollections(images, doGaussianBlur, gaussianPar
             horizontalImages.append((image, file[11]))
         else:
             image = transform.resize(image, (320, 480))
-            if (doGaussianBlur):
+            if (gaussianParams['doGaussian']):
                 filters.gaussian(image,
                                  gaussianParams['sigma'],
                                  gaussianParams['output'],
@@ -43,8 +43,8 @@ def DevideToHorizontalAndVerticalCollections(images, doGaussianBlur, gaussianPar
     return horizontalImages, verticalImages
 
 
-def ConcateHorizontalAndVertical(srcFile, doGaussianBlur, gaussianParams):
-    horizontalImages, verticalImages = LoadImages(srcFile, doGaussianBlur, gaussianParams)
+def ConcateHorizontalAndVertical(srcFile, gaussianParams):
+    horizontalImages, verticalImages = LoadImages(srcFile, gaussianParams)
     return horizontalImages + verticalImages
 
 

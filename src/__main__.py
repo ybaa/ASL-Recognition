@@ -5,6 +5,7 @@ if __name__ == '__main__':
 
     learning_Manager = LearningManager(testing=False, c_in=1, gamma_in='auto', decision='ovo')
     gaussianParams = {
+        'doGaussian': True,
         'sigma': 1,
         'output': None,
         'mode': 'nearest',
@@ -13,8 +14,7 @@ if __name__ == '__main__':
         'preserve_range': False,
         'truncate': 4.0
     }
-    # if second param is true, then gaussian blur will be done
-    images = ConcateHorizontalAndVertical("images/sma", True, gaussianParams)
+    images = ConcateHorizontalAndVertical("images/sma", gaussianParams)
     trainingSet, testingSet = DevideImagesForTrainingAndTesting(images, 0.7)
 
     # __Testing_learning_parameters__(trainingSet, testingSet)
