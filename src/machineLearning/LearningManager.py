@@ -2,6 +2,7 @@ from src.machineLearning.BriefLearning import Brief_Extractor
 from src.machineLearning.CENSURELearning import CENSURE_Extractor
 from src.machineLearning.MachineLearning import Knowledge
 from src.machineLearning.ORBLearning import ORB_Extractor
+import pickle
 
 
 def __Testing_learning_parameters__(trainingSet, testingSet):
@@ -125,3 +126,13 @@ class LearningManager:
     def __Test_result__(self, algorithm, corrects, max, name):
         corrects = corrects / max * 100
         print("  " + algorithm + " in " + name + " : ", corrects, "%")
+
+    def __Save__(self, name):
+
+        with open(name + '.pkl', 'wb') as output:
+            pickle.dump(self.__dict__, output, pickle.HIGHEST_PROTOCOL)
+
+    def __Load__(self, name):
+        with open(name + '.pkl', 'rb') as input:
+            inside = pickle.load(input)
+            self.__dict__ = inside
