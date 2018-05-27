@@ -2,49 +2,57 @@ from skimage import transform, novice, color, io, filters
 import os
 
 
-def LoadImages(dirName, gaussianParams):
+def LoadImages(dirName, gaussianParams, laplaceParams):
     images = LoadCollectionFromDir(dirName)
-    horizontalImages, verticalImages = DevideToHorizontalAndVerticalCollections(images, gaussianParams)
+    horizontalImages, verticalImages = DevideToHorizontalAndVerticalCollections(images, gaussianParams, laplaceParams)
     return horizontalImages, verticalImages
 
 
 def LoadCollectionFromDir(dirName):
     return io.imread_collection(dirName + "/*.jpg")
 
-def DevideToHorizontalAndVerticalCollections(images, gaussianParams):
+def DevideToHorizontalAndVerticalCollections(images, gaussianParams, laplaceParams):
     horizontalImages = []
     verticalImages = []
     for image, file in zip(images, images.files):
         if image.shape[0] > image.shape[1]:
             image = transform.resize(image, (480, 320))
-            if(gaussianParams['doGaussian']):
-                filters.gaussian(image,
+            if laplaceParams['doLaplace']:
+                image = filters.laplace(image, laplaceParams['ksize'], laplaceParams['mask'])
+
+            if gaussianParams['doGaussian']:
+                image = filters.gaussian(image,
                                  gaussianParams['sigma'],
                                  gaussianParams['output'],
                                  gaussianParams['mode'],
                                  gaussianParams['cval'],
                                  gaussianParams['multichannel'],
                                  gaussianParams['preserve_range'],
-                                 gaussianParams['truncate'], )
+                                 gaussianParams['truncate'] )
+
             horizontalImages.append((image, file[11]))
         else:
             image = transform.resize(image, (320, 480))
-            if (gaussianParams['doGaussian']):
-                filters.gaussian(image,
+            if laplaceParams['doLaplace']:
+                image = filters.laplace(image, laplaceParams['ksize'], laplaceParams['mask'])
+            if gaussianParams['doGaussian']:
+                image = filters.gaussian(image,
                                  gaussianParams['sigma'],
                                  gaussianParams['output'],
                                  gaussianParams['mode'],
                                  gaussianParams['cval'],
                                  gaussianParams['multichannel'],
                                  gaussianParams['preserve_range'],
-                                 gaussianParams['truncate'], )
+                                 gaussianParams['truncate'] )
+
+
             verticalImages.append((image, file[11]))
 
     return horizontalImages, verticalImages
 
 
-def ConcateHorizontalAndVertical(srcFile, gaussianParams):
-    horizontalImages, verticalImages = LoadImages(srcFile, gaussianParams)
+def ConcateHorizontalAndVertical(srcFile, gaussianParams, laplaceParams):
+    horizontalImages, verticalImages = LoadImages(srcFile, gaussianParams, laplaceParams)
     return horizontalImages + verticalImages
 
 

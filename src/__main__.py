@@ -14,7 +14,12 @@ if __name__ == '__main__':
         'preserve_range': False,
         'truncate': 4.0
     }
-    images = ConcateHorizontalAndVertical("images/sma", gaussianParams)
+    laplaceParams = {
+        'doLaplace': True,
+        'ksize': 4,
+        'mask': None
+    }
+    images = ConcateHorizontalAndVertical("images/sma", gaussianParams, laplaceParams)
     trainingSet, testingSet = DevideImagesForTrainingAndTesting(images, 0.7)
 
     # __Testing_learning_parameters__(trainingSet, testingSet)
