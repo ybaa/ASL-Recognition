@@ -26,6 +26,6 @@ if __name__ == '__main__':
 
     learning_Manager.__Learning__(trainingSet)
 
-    learning_Manager.__Save__("ORB_nas_Scalar_laplace")
+    learning_Manager.__Save__("nas")
 
     learning_Manager.__Tests__(testingSet)
