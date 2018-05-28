@@ -1,10 +1,19 @@
 from src.imagesOperations.ImagesCollectionLoader import ConcateHorizontalAndVertical, DevideImagesForTrainingAndTesting
 from src.machineLearning.LearningManager import __Testing_learning_parameters__, LearningManager
 
+from src.attributeExtraction.Sobel import __Sobel__
+
 if __name__ == '__main__':
 
     learning_Manager = LearningManager(testing=False, c_in=1, gamma_in='auto', decision='ovo')
     images = ConcateHorizontalAndVertical("images/sma")
+
+    for image in images:
+        newImage = __Sobel__(image[0])
+        image = list(image)
+        image[0] = newImage
+        image = tuple(image)
+
     trainingSet, testingSet = DevideImagesForTrainingAndTesting(images, 0.7)
 
     # __Testing_learning_parameters__(trainingSet, testingSet)
