@@ -1,11 +1,8 @@
-from skimage import data
 from skimage.feature import CENSURE as skiCENSURE
 from skimage.color import rgb2gray
 
-import matplotlib.pyplot as plt
-
 def CENSURE(image):
-    img_orig = rgb2gray(data.astronaut())
+    img_orig = rgb2gray(image)
 
     detector = skiCENSURE()
 

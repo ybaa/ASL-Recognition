@@ -1,5 +1,5 @@
 from src.imagesOperations.ImagesCollectionLoader import ConcateHorizontalAndVertical, DevideImagesForTrainingAndTesting
-from src.machineLearning.LearningManager import __Testing_learning_parameters__, LearningManager
+from src.machineLearning.LearningManager import LearningManager
 
 if __name__ == '__main__':
 
