@@ -19,13 +19,21 @@ if __name__ == '__main__':
         'ksize': 4,
         'mask': None
     }
-    images = ConcateHorizontalAndVertical("images/nas", gaussianParams, laplaceParams)
+    anisotropicParams = {
+        'doAnisotropic': True,
+        'niter': 1,
+        'kappa': 50,
+        'gamma': 0.1,
+        'voxelspacing': None,
+        'option': 1
+    }
+    images = ConcateHorizontalAndVertical("images/nas", gaussianParams, laplaceParams, anisotropicParams)
     trainingSet, testingSet = DevideImagesForTrainingAndTesting(images, 0.7)
 
     # __Testing_learning_parameters__(trainingSet, testingSet)
 
     learning_Manager.__Learning__(trainingSet)
 
-    learning_Manager.__Save__("nas")
+    learning_Manager.__Save__("nas_anisotropic")
 
     learning_Manager.__Tests__(testingSet)
