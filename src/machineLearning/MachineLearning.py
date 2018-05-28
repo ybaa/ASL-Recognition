@@ -91,7 +91,7 @@ class Knowledge:
         self.vectorClassifier.fit(shortLearnKeyPoints, learn_names)
 
         # save data set
-        self.__Save_data_set__()
+        # self.__Save_data_set__()
         # self.__Save__()
 
     def __Save_data_set__(self, ):
