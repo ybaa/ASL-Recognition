@@ -11,4 +11,4 @@ def ORB(img):
     keypoints = descriptor_extractor.keypoints
     descriptors = descriptor_extractor.descriptors
 
-    return keypoints
+    return descriptors

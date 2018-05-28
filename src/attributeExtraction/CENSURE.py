@@ -1,4 +1,4 @@
-from skimage.feature import CENSURE as skiCENSURE
+from skimage.feature import CENSURE as skiCENSURE, BRIEF
 from skimage.color import rgb2gray
 
 def CENSURE(image):
@@ -9,4 +9,11 @@ def CENSURE(image):
     detector.detect(img_orig)
 
     keyPoints = detector.keypoints
-    return keyPoints
+
+    extractor = BRIEF(patch_size=5)
+
+    extractor.extract(img_orig, keyPoints)
+    keypoints = keyPoints[extractor.mask]
+    descriptors = extractor.descriptors
+
+    return descriptors
