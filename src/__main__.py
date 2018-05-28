@@ -1,5 +1,5 @@
 from src.imagesOperations.ImagesCollectionLoader import ConcateHorizontalAndVertical, DevideImagesForTrainingAndTesting
-from src.machineLearning.LearningManager import __Testing_learning_parameters__, LearningManager
+from src.machineLearning.LearningManager import LearningManager
 
 if __name__ == '__main__':
 
@@ -20,6 +20,7 @@ if __name__ == '__main__':
         'mask': None
     }
     images = ConcateHorizontalAndVertical("images/sma", gaussianParams, laplaceParams)
+    
     trainingSet, testingSet = DevideImagesForTrainingAndTesting(images, 0.7)
 
     # __Testing_learning_parameters__(trainingSet, testingSet)
