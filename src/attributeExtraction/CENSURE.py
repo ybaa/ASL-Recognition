@@ -1,5 +1,6 @@
 from skimage.feature import CENSURE as skiCENSURE, BRIEF
 from skimage.color import rgb2gray
+from src.attributeExtraction.StandardScaler import __Standard_Scaler__
 
 def CENSURE(image):
     img_orig = rgb2gray(image)
@@ -16,4 +17,4 @@ def CENSURE(image):
     keypoints = keyPoints[extractor.mask]
     descriptors = extractor.descriptors
 
-    return descriptors
+    return __Standard_Scaler__(descriptors)

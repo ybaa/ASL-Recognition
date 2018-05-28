@@ -34,6 +34,6 @@ if __name__ == '__main__':
 
     learning_Manager.__Learning__(trainingSet)
 
-    learning_Manager.__Save__("nas_anisotropic")
+    learning_Manager.__Save__("nas_anisotropic_scaler")
 
     learning_Manager.__Tests__(testingSet)
