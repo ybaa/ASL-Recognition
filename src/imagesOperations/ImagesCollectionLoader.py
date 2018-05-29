@@ -1,5 +1,6 @@
 from skimage import transform, novice, color, io, filters
 from medpy.filter.smoothing import anisotropic_diffusion
+from src.imagesOperations.Sobel import __Sobel__
 
 
 def LoadImages(dirName, gaussianParams, laplaceParams, anisotropicParams):
@@ -14,8 +15,11 @@ def LoadCollectionFromDir(dirName):
 
 
 def ImageConvwersions(image, gaussianParams, laplaceParams, anisotropicParams):
+    anisotropicImage = None
+    laplaceImage = None
+    goussianImage = None
     if anisotropicParams['doAnisotropic']:
-        image = anisotropic_diffusion(image,
+        anisotropicImage = anisotropic_diffusion(image,
                                       anisotropicParams['niter'],
                                       anisotropicParams['kappa'],
                                       anisotropicParams['gamma'],
@@ -23,10 +27,10 @@ def ImageConvwersions(image, gaussianParams, laplaceParams, anisotropicParams):
                                       anisotropicParams['option'])
 
     if laplaceParams['doLaplace']:
-        image = filters.laplace(image, laplaceParams['ksize'], laplaceParams['mask'])
+        laplaceImage = filters.laplace(image, laplaceParams['ksize'], laplaceParams['mask'])
 
     if gaussianParams['doGaussian']:
-        image = filters.gaussian(image,
+        goussianImage = filters.gaussian(image,
                                  gaussianParams['sigma'],
                                  gaussianParams['output'],
                                  gaussianParams['mode'],
@@ -34,7 +38,7 @@ def ImageConvwersions(image, gaussianParams, laplaceParams, anisotropicParams):
                                  gaussianParams['multichannel'],
                                  gaussianParams['preserve_range'],
                                  gaussianParams['truncate'])
-    return image
+    return (anisotropicImage + goussianImage) / 2
 
 
 def DevideToHorizontalAndVerticalCollections(images, gaussianParams, laplaceParams, anisotropicParams):

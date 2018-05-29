@@ -41,7 +41,7 @@ class LearningManager:
 
     def __Regular_init__(self, c_in, gamma_in, decision):
         self.knowledges = []
-        self.knowledges.append(Knowledge(False, CENSURE_Extractor(), 'CENSURE', c_in, gamma_in, decision))
+        # self.knowledges.append(Knowledge(False, CENSURE_Extractor(), 'CENSURE', c_in, gamma_in, decision))
         self.knowledges.append(Knowledge(False, ORB_Extractor(), 'ORB', c_in, gamma_in, decision))
         # self.knowledges.append(Knowledge(False, Brief_Extractor(), 'BRIEF', c_in, gamma_in, decision))
 

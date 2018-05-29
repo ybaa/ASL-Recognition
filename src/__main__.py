@@ -5,7 +5,7 @@ if __name__ == '__main__':
 
     learning_Manager = LearningManager(testing=False, c_in=1, gamma_in='auto', decision='ovo')
     gaussianParams = {
-        'doGaussian': False,
+        'doGaussian': True,
         'sigma': 1,
         'output': None,
         'mode': 'nearest',
@@ -34,6 +34,6 @@ if __name__ == '__main__':
 
     learning_Manager.__Learning__(trainingSet)
 
-    learning_Manager.__Save__("nas_anisotropic_scaler")
+    learning_Manager.__Save__("nas_anisotropic_normalize")
 
     learning_Manager.__Tests__(testingSet)
