@@ -28,7 +28,7 @@ if __name__ == '__main__':
         'option': 1
     }
     images = ConcateHorizontalAndVertical("images/nas", gaussianParams, laplaceParams, anisotropicParams)
-    trainingSet, testingSet = DevideImagesForTrainingAndTesting(images, 0.7)
+    trainingSet, testingSet = DevideImagesForTrainingAndTesting(images, 0.8)
 
     # __Testing_learning_parameters__(trainingSet, testingSet)
 
