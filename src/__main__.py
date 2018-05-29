@@ -1,7 +1,9 @@
 from src.imagesOperations.ImagesCollectionLoader import ConcateHorizontalAndVertical, DevideImagesForTrainingAndTesting
 from src.machineLearning.LearningManager import LearningManager
+from src.imagesOperations.ImageRotation import RotateImages
 
 if __name__ == '__main__':
+    # RotateImages("images/nas", 15)
 
     learning_Manager = LearningManager(testing=False, c_in=1, gamma_in='auto', decision='ovo')
     gaussianParams = {
