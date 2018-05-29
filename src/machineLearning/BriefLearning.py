@@ -19,22 +19,8 @@ class Brief_Extractor(Extractor):
         return learnNames, learnKeyPoints
 
     def __Individual_Extraction__(self, image):
-        keyPoints = BRIEF_skimag(image[0])
+        keyPoints = BRIEF_skimag(image)
         if len(keyPoints) > 0:
             return keyPoints
         else:
             return None
-
-def __Brief_attribute_extraction__(images):
-    learnNames = []
-    learnKeyPoints = []
-    for image in images:
-        keyPoints = BRIEF_skimag(image[0])
-        if len(keyPoints) > 0:
-            x = []
-            for point in keyPoints:
-                x.append(point)
-            if len(x) > 4:
-                learnNames.append(image[1])
-                learnKeyPoints.append(x)
-    return learnNames, learnKeyPoints
