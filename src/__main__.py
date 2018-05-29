@@ -3,7 +3,7 @@ from src.machineLearning.LearningManager import LearningManager
 
 if __name__ == '__main__':
 
-    learning_Manager = LearningManager(testing=False, c_in=1, gamma_in='auto', decision='ovo')
+    learning_Manager = LearningManager(testing=False, c_in=2**5, gamma_in='auto', decision='ovo')
     gaussianParams = {
         'doGaussian': True,
         'sigma': 1,
