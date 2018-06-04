@@ -5,13 +5,17 @@ from src.attributeExtraction.Normalize import __Normalize__
 
 
 def ORB(img):
-    img1 = rgb2gray(img)
+    try:
+        img1 = rgb2gray(img)
 
-    descriptor_extractor = skiORB(n_keypoints=200)
+        descriptor_extractor = skiORB(n_keypoints=200)
 
-    descriptor_extractor.detect_and_extract(img1)
-    keypoints = descriptor_extractor.keypoints
-    descriptors = descriptor_extractor.descriptors
-    normalized = __Normalize__(descriptors)
+        descriptor_extractor.detect_and_extract(img1)
+        keypoints = descriptor_extractor.keypoints
+        descriptors = descriptor_extractor.descriptors
+        normalized = __Normalize__(descriptors)
+        scalled = __Standard_Scaler__(normalized)
+    except:
+        scalled = None
 
-    return __Standard_Scaler__(normalized)
+    return scalled

@@ -3,9 +3,14 @@ from src.machineLearning.LearningManager import LearningManager
 from src.imagesOperations.ImageRotation import RotateImages
 
 if __name__ == '__main__':
-    # RotateImages("images/nas", 15)
+    # RotateImages("images/nas", -4)
+    # RotateImages("images/nas", 11)
+    # RotateImages("images/nas", -12)
 
     learning_Manager = LearningManager(testing=False, c_in=2**5, gamma_in='auto', decision='ovo')
+
+    learning_Manager.__Load__("big")
+
     gaussianParams = {
         'doGaussian': True,
         'sigma': 1,
@@ -29,13 +34,13 @@ if __name__ == '__main__':
         'voxelspacing': None,
         'option': 1
     }
-    images = ConcateHorizontalAndVertical("images/nas", gaussianParams, laplaceParams, anisotropicParams)
+    images = ConcateHorizontalAndVertical("images/big", gaussianParams, laplaceParams, anisotropicParams)
     trainingSet, testingSet = DevideImagesForTrainingAndTesting(images, 0.8)
 
     # __Testing_learning_parameters__(trainingSet, testingSet)
 
     learning_Manager.__Learning__(trainingSet)
 
-    learning_Manager.__Save__("nas_anisotropic_normalize")
+    # learning_Manager.__Save__("small")
 
     learning_Manager.__Tests__(testingSet)

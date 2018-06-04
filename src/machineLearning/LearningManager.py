@@ -28,6 +28,24 @@ def __Testing_learning_parameters__(trainingSet, testingSet):
             learningManager.__Tests_test__()
 
 
+class Dismaches:
+
+    def __init__(self, correct, incorrect):
+        self.correct = correct
+        self.incorrect = incorrect
+        self.multiplication = 1
+
+    def __eq__(self, correct, incorrect):
+        return (self.correct == correct) & (self.incorrect == incorrect)
+
+    def increment(self):
+        self.multiplication += 1
+
+    def __str__(self):
+        string = "correct: " + str(self.correct) + " dismaches with " + str(self.incorrect) + " " + str(self.multiplication) + " times"
+        return string
+
+
 class LearningManager:
 
     def __init__(self, testing=False, c_in=1, gamma_in='auto', decision='ovr', ORB_learn_names=None,
@@ -88,21 +106,55 @@ class LearningManager:
     def __Test__(self, knowledge, testing_set):
         print(" To " + knowledge.algorithm + ":")
         correctPoint = 0.0
+        pointDismaches = []
         correctCombine = 0.0
+        combineDismaches = []
         correctVector = 0.0
+        vectorDismaches = []
         for image in testing_set:
-            pointAnswer, combineAnswer, vectorAnswer = knowledge.__Predicting__(image[0], True, True, True)
-            if pointAnswer == image[1]:
-                correctPoint += 1
-            if combineAnswer == image[1]:
-                correctCombine += 1
-            if vectorAnswer == image[1]:
-                correctVector += 1
+            try:
+                pointAnswer, combineAnswer, vectorAnswer = knowledge.__Predicting__(image[0], True, True, True)
+                if pointAnswer == image[1]:
+                    correctPoint += 1
+                else:
+                    pointDismaches = self.Dismaching(pointDismaches, image[1], pointAnswer)
+                if combineAnswer == image[1]:
+                    correctCombine += 1
+                else:
+                    combineDismaches = self.Dismaching(combineDismaches, image[1], pointAnswer)
+                if vectorAnswer == image[1]:
+                    correctVector += 1
+                else:
+                    vectorDismaches = self.Dismaching(vectorDismaches, image[1], pointAnswer)
+            except:
+                pass
+
 
         testing_Set_len = len(testing_set)
         self.__Test_result__(knowledge.algorithm, correctPoint, testing_Set_len, "Point")
         self.__Test_result__(knowledge.algorithm, correctCombine, testing_Set_len, "Combine")
         self.__Test_result__(knowledge.algorithm, correctVector, testing_Set_len, "Vector")
+
+        print("For Points:")
+        for dismache in pointDismaches:
+            print(dismache.__str__())
+        print("For combine:")
+        for dismache in combineDismaches:
+            print(dismache.__str__())
+        print("For vectors:")
+        for dismache in vectorDismaches:
+            print(dismache.__str__())
+
+    def Dismaching(self, dimachesColection, correct, incorrect):
+        exist = False
+        for dismache in dimachesColection:
+            if dismache.__eq__(correct, incorrect):
+                dismache.increment()
+                exist = True
+        if not exist:
+            dimachesColection.append(Dismaches(correct, incorrect))
+        return dimachesColection
+
 
     def __Test_test__(self, knowledge, testing_points_set):
         print(" To " + knowledge.algorithm + ":")
