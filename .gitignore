@@ -1,0 +1,10 @@
+# Images
+*.jpg
+
+# idea
+.idea/
+
+# pyce and pekaele and venv
+*.pyc
+*.pkl
+venv/
