@@ -1,5 +1,5 @@
-from src.attributeExtraction.cv2ORB import ORB as cv2ORB
-from src.machineLearning.MachineLearning import MinimizeDataSet, GenearteKnowlageBase
+from attributeExtraction.cv2ORB import ORB as cv2ORB
+from machineLearning.MachineLearning import MinimizeDataSet, GenearteKnowlageBase
 
 
 def cv2ORBAttributeExtraction(images):

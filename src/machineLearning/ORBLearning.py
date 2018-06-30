@@ -1,5 +1,5 @@
-from src.attributeExtraction.ORB import ORB
-from src.machineLearning.Learner import Extractor
+from attributeExtraction.ORB import ORB
+from machineLearning.Learner import Extractor
 
 
 class ORB_Extractor(Extractor):

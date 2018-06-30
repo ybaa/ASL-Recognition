@@ -1,5 +1,5 @@
-from src.attributeExtraction.CENSURE import CENSURE
-from src.machineLearning.Learner import Extractor
+from attributeExtraction.CENSURE import CENSURE
+from machineLearning.Learner import Extractor
 
 
 class CENSURE_Extractor(Extractor):

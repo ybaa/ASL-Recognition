@@ -1,7 +1,7 @@
-from src.machineLearning.BriefLearning import Brief_Extractor
-from src.machineLearning.CENSURELearning import CENSURE_Extractor
-from src.machineLearning.MachineLearning import Knowledge
-from src.machineLearning.ORBLearning import ORB_Extractor
+from machineLearning.BriefLearning import Brief_Extractor
+from machineLearning.CENSURELearning import CENSURE_Extractor
+from machineLearning.MachineLearning import Knowledge
+from machineLearning.ORBLearning import ORB_Extractor
 import pickle
 
 

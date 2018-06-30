@@ -1,8 +1,8 @@
 from sklearn.externals import joblib
 from sklearn.svm import SVC
 import numpy as np
-from src.machineLearning.AlphabetMonitor import AlphabetMonitor
-from src.machineLearning.Learner import Extractor
+from machineLearning.AlphabetMonitor import AlphabetMonitor
+from machineLearning.Learner import Extractor
 
 
 def __Minimize_Data_Set__(learn_key_points):
