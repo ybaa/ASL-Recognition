@@ -63,7 +63,7 @@ def devide_to_horizontal_and_vertical_collection(images, gaussian_params, laplac
             filename = file.rpartition('/')
             filename = filename[len(filename)-1]
             letter = filename[0]
-            
+
             vertical_images.append((image, letter))
 
     return horizontal_images, vertical_images
