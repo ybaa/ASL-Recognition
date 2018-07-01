@@ -10,4 +10,4 @@
 venv/
 
 #vscode filed
-.vscode/
+src/.vscode/
