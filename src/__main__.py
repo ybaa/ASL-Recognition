@@ -4,7 +4,7 @@ from imagesOperations.imageRotation import rotate_image
 
 
 if __name__ == '__main__':
-    # RotateImages("images/nas", 15)
+    #rotate_image("images/finaltest", 15)
 
     learning_Manager = LearningManager(testing=False, c_in=2**5, gamma_in='auto', decision='ovo')
     gaussian_params = {

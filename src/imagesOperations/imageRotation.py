@@ -6,8 +6,13 @@ def rotate_image(dir_name, angle):
     i = 0;
     for image, file in zip(images, images.files):
        image = transform.rotate(image,angle)
-       filename = "%s/%s_Rotated%s_%s.jpg"%(dir_name,file[11],angle,i) # file[11] + 'Rotated' + angle + "_" +i+".jpg"
-       io.imsave(filename, image)
+
+       filename = file.rpartition('/')
+       filename = filename[len(filename)-1]
+       letter = filename[0]
+       
+       exportFilename = "%s/%s_Rotated%s_%s.jpg"%(dir_name,letter,angle,i) # file[11] + 'Rotated' + angle + "_" +i+".jpg"
+       io.imsave(exportFilename, image)
        i += 1
 
     print('DONE')
