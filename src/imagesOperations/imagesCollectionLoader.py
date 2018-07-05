@@ -50,6 +50,7 @@ def devide_to_horizontal_and_vertical_collection(images, gaussian_params, laplac
 
             image = image_conversion(image, gaussian_params, laplace_params, anisotropic_params)
 
+            file = file.replace('\\', '/')
             filename = file.rpartition('/')
             filename = filename[len(filename)-1]
             letter = filename[0]
@@ -60,6 +61,7 @@ def devide_to_horizontal_and_vertical_collection(images, gaussian_params, laplac
 
             image = image_conversion(image, gaussian_params, laplace_params, anisotropic_params)
 
+            file = file.replace('\\', '/')
             filename = file.rpartition('/')
             filename = filename[len(filename)-1]
             letter = filename[0]

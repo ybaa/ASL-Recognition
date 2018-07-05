@@ -7,6 +7,7 @@ def rotate_image(dir_name, angle):
     for image, file in zip(images, images.files):
        image = transform.rotate(image,angle)
 
+       file = file.replace('\\', '/')
        filename = file.rpartition('/')
        filename = filename[len(filename)-1]
        letter = filename[0]

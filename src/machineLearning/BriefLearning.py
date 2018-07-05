@@ -1,5 +1,5 @@
-from attributeExtraction.BRIEFbinaryDescription import BRIEF_skimag
-from machineLearning.Learner import Extractor
+from src.attributeExtraction.BRIEFbinaryDescription import BRIEF_skimag
+from src.machineLearning.Learner import Extractor
 
 
 class Brief_Extractor(Extractor):

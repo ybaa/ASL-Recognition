@@ -3,7 +3,7 @@ sys.path.append('../')
 
 from src.imagesOperations.imagesCollectionLoader import concate_horizontal_and_vertical, devide_images_for_training_and_testing
 from src.machineLearning.LearningManager import LearningManager
-from imagesOperations.imageRotation import rotate_image
+from src.imagesOperations.imageRotation import rotate_image
 
 
 if __name__ == '__main__':

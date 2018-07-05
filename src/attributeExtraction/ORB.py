@@ -1,7 +1,7 @@
 from skimage.feature import ORB as skiORB
 from skimage.color import rgb2gray
-from attributeExtraction.StandardScaler import __Standard_Scaler__
-from attributeExtraction.Normalize import __Normalize__
+from src.attributeExtraction.StandardScaler import __Standard_Scaler__
+from src.attributeExtraction.Normalize import __Normalize__
 
 
 def ORB(img):
