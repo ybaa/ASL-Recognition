@@ -1,5 +1,5 @@
 from skimage import transform, io
-from imagesOperations.imagesCollectionLoader import load_collection_from_dir
+from src.imagesOperations.imagesCollectionLoader import load_collection_from_dir
 
 def rotate_image(dir_name, angle):
     images = load_collection_from_dir(dir_name)

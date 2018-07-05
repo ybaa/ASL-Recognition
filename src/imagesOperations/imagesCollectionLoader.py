@@ -1,6 +1,6 @@
 from skimage import transform, novice, color, io, filters
 from medpy.filter.smoothing import anisotropic_diffusion
-from imagesOperations.Sobel import __Sobel__
+from src.imagesOperations.Sobel import __Sobel__
 
 
 def load_images(dir_name, gaussian_params, laplace_params, anisotropic_params):
