@@ -2,23 +2,23 @@ from src.attributeExtraction.cv2ORB import ORB as cv2ORB
 from src.machineLearning.MachineLearning import MinimizeDataSet, GenearteKnowlageBase
 
 
-def cv2ORBAttributeExtraction(images):
-    learnNames = []
-    learnKeyPoints = []
+def cv2_ORB_attribute_extraction(images):
+    learn_names = []
+    learn_key_points = []
     for image in images:
-        keyPoints = cv2ORB(image[0])
+        key_points = cv2ORB(image[0])
         x = []
-        for point in keyPoints:
+        for point in key_points:
             x.append(point.pt[0])
             x.append(point.pt[1])
         if len(x) > 300:
-            learnNames.append(image[1])
-            learnKeyPoints.append(x)
-    return learnNames, learnKeyPoints
+            learn_names.append(image[1])
+            learn_key_points.append(x)
+    return learn_names, learn_key_points
 
 
-def cv2ORBLerning(images, outputFile):
-    outputFile = 'cv2ORBDataSet'
-    learnNames, learnKeyPoints = cv2ORBAttributeExtraction(images)
-    learnKeyPoints = MinimizeDataSet(learnKeyPoints)
-    GenearteKnowlageBase(learnKeyPoints, learnNames, outputFile)
+def cv2_ORB_learning(images, output_file):
+    output_file = 'cv2ORBDataSet'
+    learn_names, learn_key_points = cv2_ORB_attribute_extraction(images)
+    learn_key_points = MinimizeDataSet(learn_key_points)
+    GenearteKnowlageBase(learn_key_points, learn_names, output_file)

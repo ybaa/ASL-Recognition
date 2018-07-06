@@ -13,7 +13,7 @@ def ORB(img):
     keyPoints, des = orb.compute(img, keyPoints)
     return keyPoints
 
-def pictureFromORB(img):
+def picture_from_ORB(img):
     # draw only keypoints location,not size and orientation
     kp = ORB(img)
     img2 = cv2.drawKeypoints(img, kp, None, color=(0, 255, 0), flags=0)

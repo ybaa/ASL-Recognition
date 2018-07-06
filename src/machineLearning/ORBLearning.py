@@ -2,20 +2,20 @@ from src.attributeExtraction.ORB import ORB
 from src.machineLearning.Learner import Extractor
 
 
-class ORB_Extractor(Extractor):
+class ORBExtractor(Extractor):
 
-    def __Collection_Extractor__(self, images):
-        learnNames = []
-        learnKeyPoints = []
+    def collection_extractor(self, images):
+        learn_names = []
+        learn_key_points = []
         for image in images:
-            keyPoints = ORB(image[0])
+            key_points = ORB(image[0])
             x = []
-            for point in keyPoints:
+            for point in key_points:
                 x.append(point)
             if len(x) > 100:
-                learnNames.append(image[1])
-                learnKeyPoints.append(x)
-        return learnNames, learnKeyPoints
+                learn_names.append(image[1])
+                learn_key_points.append(x)
+        return learn_names, learn_key_points
 
-    def __Individual_Extraction__(self, image):
+    def individual_extraction(self, image):
         return ORB(image)

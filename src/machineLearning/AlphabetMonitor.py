@@ -13,7 +13,7 @@ class AlphabetMonitor:
                 self.alphabet.append(sign)
                 self.value.append(0)
 
-    def __Monitoring__(self, learned):
+    def monitoring(self, learned):
         value = copy(self.value)
         for learn in learned:
             index = self.alphabet.index(learn)

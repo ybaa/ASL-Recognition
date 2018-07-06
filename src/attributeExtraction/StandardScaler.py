@@ -1,7 +1,7 @@
 from sklearn.preprocessing import StandardScaler
 
 
-def __Standard_Scaler__(data):
+def standard_scaler(data):
     scaler = StandardScaler()
     try:
         scaler.fit(data)

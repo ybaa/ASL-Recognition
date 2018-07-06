@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def __rgb2BW_(image):
+def rgb_2_bw(image):
     newImage = []
     for row in image:
         newRow = []
