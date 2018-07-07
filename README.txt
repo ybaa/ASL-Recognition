@@ -2,6 +2,6 @@ todo
 
 To install required packages use command:
 
-`pip install -r requirements.txt`
+`pip3 install -r requirements.txt`
 
 or use PyCharm tool for that.
