@@ -1,0 +1,4 @@
+medpy
+scikit-learn
+scikit-image
+numpy
