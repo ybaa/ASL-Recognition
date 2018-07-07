@@ -1,7 +1,7 @@
 from skimage.feature import ORB as skiORB
 from skimage.color import rgb2gray
-from src.attributeExtraction.StandardScaler import __Standard_Scaler__
-from src.attributeExtraction.Normalize import __Normalize__
+from src.attributeExtraction.StandardScaler import standard_scaler
+from src.attributeExtraction.Normalize import normalize
 
 
 def ORB(img):
@@ -12,6 +12,6 @@ def ORB(img):
     descriptor_extractor.detect_and_extract(img1)
     keypoints = descriptor_extractor.keypoints
     descriptors = descriptor_extractor.descriptors
-    normalized = __Normalize__(descriptors)
+    normalized = normalize(descriptors)
 
-    return __Standard_Scaler__(normalized)
+    return standard_scaler(normalized)

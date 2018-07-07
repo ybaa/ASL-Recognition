@@ -1,6 +1,6 @@
-from sklearn.preprocessing import normalize
+from sklearn.preprocessing import normalize as norm
 
 
-def __Normalize__(descriptors):
-    newDescriptors = normalize(descriptors, 'l2')
+def normalize(descriptors):
+    newDescriptors = norm(descriptors, 'l2')
     return newDescriptors

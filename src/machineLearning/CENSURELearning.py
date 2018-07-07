@@ -2,21 +2,21 @@ from src.attributeExtraction.CENSURE import CENSURE
 from src.machineLearning.Learner import Extractor
 
 
-class CENSURE_Extractor(Extractor):
+class CENSUREExtractor(Extractor):
 
-    def __Collection_Extractor__(self, images):
-        learnNames = []
-        learnKeyPoints = []
+    def collection_extractor(self, images):
+        learn_names = []
+        learn_key_points = []
         for image in images:
-            keyPoints = CENSURE(image[0])
-            if len(keyPoints) > 0:
+            key_points = CENSURE(image[0])
+            if len(key_points) > 0:
                 x = []
-                for point in keyPoints:
+                for point in key_points:
                     x.append(point)
                 if len(x) > 4:
-                    learnNames.append(image[1])
-                    learnKeyPoints.append(x)
-        return learnNames, learnKeyPoints
+                    learn_names.append(image[1])
+                    learn_key_points.append(x)
+        return learn_names, learn_key_points
 
-    def __Individual_Extraction__(self, image):
+    def individual_extraction(self, image):
         return CENSURE(image)

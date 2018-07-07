@@ -1,8 +1,8 @@
 
 class Extractor:
 
-    def __Collection_Extractor__(self, images):
+    def collection_extractor(self, images):
         return None
 
-    def __Individual_Extraction__(self, image):
+    def individual_extraction(self, image):
         return None

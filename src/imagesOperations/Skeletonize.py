@@ -1,8 +1,9 @@
 from skimage.color import rgb2gray
-from skimage.morphology import skeletonize
+from skimage.morphology import skeletonize as skelet
 
-def __Skeletonize__(image):
+
+def skeletonize(image):
     # newImage = __rgb2BW_(image)
     newImage = rgb2gray(image)
-    skeleton = skeletonize(newImage)
+    skeleton = skelet(newImage)
     return skeleton

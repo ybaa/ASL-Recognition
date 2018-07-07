@@ -1,7 +1,8 @@
 from skimage.color import rgb2gray
-from skimage.filters import sobel
+from skimage.filters import sobel as sob
 
-def __Sobel__(image):
+
+def sobel(image):
     newImage = rgb2gray(image)
-    edge_sobel = sobel(newImage)
+    edge_sobel = sob(newImage)
     return edge_sobel

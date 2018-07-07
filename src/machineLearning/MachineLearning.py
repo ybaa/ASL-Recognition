@@ -5,18 +5,18 @@ from src.machineLearning.AlphabetMonitor import AlphabetMonitor
 from src.machineLearning.Learner import Extractor
 
 
-def __Minimize_Data_Set__(learn_key_points):
-    minSize = len(learn_key_points[0])
+def minimize_data_set(learn_key_points):
+    min_size = len(learn_key_points[0])
     for points in learn_key_points:
         length = len(points)
-        if minSize > length:
-            minSize = length
+        if min_size > length:
+            min_size = length
 
-    newLearnKeyPoints = []
+    new_learn_key_points = []
     for points in learn_key_points:
-        newLearnKeyPoints.append(points[:minSize])
+        new_learn_key_points.append(points[:min_size])
 
-    return newLearnKeyPoints
+    return new_learn_key_points
 
 
 class Knowledge:
@@ -30,11 +30,11 @@ class Knowledge:
     def __init__(self, testing=False, manager=None, name=None, c_in=None, gamma_in=None, decision=None,
                  learn_names=None, learn_key_points=None):
         if testing:
-            self.__Testing_init__(manager, name, c_in, gamma_in, decision, learn_names, learn_key_points)
+            self.testing_init(manager, name, c_in, gamma_in, decision, learn_names, learn_key_points)
         else:
-            self.__Regular_init__(manager, name, c_in, gamma_in, decision)
+            self.regular_init(manager, name, c_in, gamma_in, decision)
 
-    def __Regular_init__(self, manager, name, c_in, gamma_in, decision):
+    def regular_init(self, manager, name, c_in, gamma_in, decision):
         self.AlgorithmManager = manager
         self.pointClassifier = SVC(kernel='rbf', C=c_in, decision_function_shape=decision, gamma=gamma_in)
         self.classificationClassifier = SVC(kernel='rbf', C=c_in, decision_function_shape=decision, gamma=gamma_in)
@@ -42,7 +42,7 @@ class Knowledge:
         self.data_len = 0
         self.algorithm = name
 
-    def __Testing_init__(self, manager, name, c_in, gamma_in, decision, learn_names, learn_key_points):
+    def testing_init(self, manager, name, c_in, gamma_in, decision, learn_names, learn_key_points):
         self.AlgorithmManager = manager
         self.pointClassifier = SVC(kernel='rbf', C=c_in, decision_function_shape=decision, gamma=gamma_in)
         self.classificationClassifier = SVC(kernel='rbf', C=c_in, decision_function_shape=decision, gamma=gamma_in)
@@ -52,49 +52,49 @@ class Knowledge:
         self.learnNames = learn_names
         self.learnKeyPoints = learn_key_points
 
-    def __Learning_test__(self):
+    def learning_test(self):
         self.names = AlphabetMonitor(self.learnNames)
-        self.__Generate_Knowledge_Base__(self.learnKeyPoints, self.learnNames)
+        self.generate_knowledge_base(self.learnKeyPoints, self.learnNames)
 
-    def __Learning__(self, images):
-        learnNames, learnKeyPoints = self.AlgorithmManager.__Collection_Extractor__(images)
-        self.names = AlphabetMonitor(learnNames)
-        self.__Generate_Knowledge_Base__(learnKeyPoints, learnNames)
+    def learning(self, images):
+        learn_names, learn_key_points = self.AlgorithmManager.collection_extractor(images)
+        self.names = AlphabetMonitor(learn_names)
+        self.generate_knowledge_base(learn_key_points, learn_names)
 
-    def __Generate_Knowledge_Base__(self, learn_key_points, learn_names):
+    def generate_knowledge_base(self, learn_key_points, learn_names):
         # learning point by point
-        newPictures = []
-        newNames = []
+        new_pictures = []
+        new_names = []
         for picture, name in zip(learn_key_points, learn_names):
             for point in picture:
                 newName = (name + '.')[:-1]
-                newPictures.append(point)
-                newNames.append(newName)
-        self.pointClassifier.fit(newPictures, newNames)
+                new_pictures.append(point)
+                new_names.append(newName)
+        self.pointClassifier.fit(new_pictures, new_names)
 
         # learning by answers from points
-        newClassification = []
+        new_classification = []
         for picture in learn_key_points:
             answers = []
             for point in picture:
-                newPoint = [point]
-                answers.append(self.pointClassifier.predict(newPoint)[0])
-            newClassification.append(self.names.__Monitoring__(answers))
-        self.classificationClassifier.fit(newClassification, learn_names)
+                new_point = [point]
+                answers.append(self.pointClassifier.predict(new_point)[0])
+            new_classification.append(self.names.monitoring(answers))
+        self.classificationClassifier.fit(new_classification, learn_names)
 
         # learning by shortcuts of input
-        shortLearnKeyPoints = __Minimize_Data_Set__(learn_key_points)
-        self.data_len = len(shortLearnKeyPoints[0])
-        learnKeyPointsArray = np.array(shortLearnKeyPoints)
-        samples, nx, ny = learnKeyPointsArray.shape
-        shortLearnKeyPoints = learnKeyPointsArray.reshape((samples, nx * ny))
-        self.vectorClassifier.fit(shortLearnKeyPoints, learn_names)
+        short_learn_key_points = minimize_data_set(learn_key_points)
+        self.data_len = len(short_learn_key_points[0])
+        learn_key_points_array = np.array(short_learn_key_points)
+        samples, nx, ny = learn_key_points_array.shape
+        short_learn_key_points = learn_key_points_array.reshape((samples, nx * ny))
+        self.vectorClassifier.fit(short_learn_key_points, learn_names)
 
         # save data set
         # self.__Save_data_set__()
         # self.__Save__()
 
-    def __Save_data_set__(self, ):
+    def save_data_set(self, ):
         with open('point' + self.algorithm + '.pkl', "wb") as file:
             joblib.dump(self.pointClassifier, file)
 
@@ -108,7 +108,7 @@ class Knowledge:
         with open(algorithm_name + '.pkl', "wb") as file:
             joblib.dump(self.names, file)
 
-    def __Load_data_set__(self):
+    def load_data_set(self):
         algorithm_name = self.algorithm
         load_name = 'point' + algorithm_name + '.pkl'
         self.pointClassifier = joblib.load(load_name)
@@ -119,54 +119,54 @@ class Knowledge:
         load_name = algorithm_name + '/vector' + algorithm_name + '.pkl'
         self.vectorClassifier = joblib.load(load_name)
 
-    def __Load__(self, algorithm_name):
+    def load(self, algorithm_name):
         load_name = algorithm_name + '/' + algorithm_name + '.pkl'
         self.names = joblib.load(load_name)
-        self.__Load_data_set__(algorithm_name)
+        self.load_data_set(algorithm_name)
 
-    def __Predicting__(self, image, points=False, combine=False, vector=False):
-        key_Points = self.AlgorithmManager.__Individual_Extraction__(image)
-        pointAnswer = ''
-        combineAnswer = ''
-        vectorAnswer = ''
-        if key_Points is not None:
+    def predicting(self, image, points=False, combine=False, vector=False):
+        key__points = self.AlgorithmManager.individual_extraction(image)
+        point_answer = ''
+        combine_answer = ''
+        vector_answer = ''
+        if key__points is not None:
             if points or combine:
                 answers = []
-                for point in key_Points:
+                for point in key__points:
                     point = [point]
                     answers.append(self.pointClassifier.predict(point))
-                countedAnswers = self.names.__Monitoring__(answers)
-                pointAnswer = self.names.alphabet[countedAnswers.index(max(countedAnswers))]
+                counted_answers = self.names.monitoring(answers)
+                point_answer = self.names.alphabet[counted_answers.index(max(counted_answers))]
                 if combine:
-                    combineAnswer = self.classificationClassifier.predict([countedAnswers])
-            if vector and (len(key_Points) >= self.data_len):
-                key_Points = [key_Points[:self.data_len]]
-                learnKeyPointsArray = np.array(key_Points)
-                samples, nx, ny = learnKeyPointsArray.shape
-                key_Points = learnKeyPointsArray.reshape((samples, nx * ny))
-                vectorAnswer = self.vectorClassifier.predict(key_Points)
+                    combine_answer = self.classificationClassifier.predict([counted_answers])
+            if vector and (len(key__points) >= self.data_len):
+                key__points = [key__points[:self.data_len]]
+                learn_key_points_array = np.array(key__points)
+                samples, nx, ny = learn_key_points_array.shape
+                key__points = learn_key_points_array.reshape((samples, nx * ny))
+                vector_answer = self.vectorClassifier.predict(key__points)
 
-        return pointAnswer, combineAnswer, vectorAnswer
+        return point_answer, combine_answer, vector_answer
 
-    def __Predicting_test__(self, key_Points, points=False, combine=False, vector=False):
-        pointAnswer = ''
-        combineAnswer = ''
-        vectorAnswer = ''
-        if key_Points is not None:
+    def predicting_test(self, key_points, points=False, combine=False, vector=False):
+        point_answer = ''
+        combine_answer = ''
+        vector_answer = ''
+        if key_points is not None:
             if points or combine:
                 answers = []
-                for point in key_Points:
+                for point in key_points:
                     point = [point]
                     answers.append(self.pointClassifier.predict(point))
-                countedAnswers = self.names.__Monitoring__(answers)
-                pointAnswer = self.names.alphabet[countedAnswers.index(max(countedAnswers))]
+                counted_answers = self.names.monitoring(answers)
+                point_answer = self.names.alphabet[counted_answers.index(max(counted_answers))]
                 if combine:
-                    combineAnswer = self.classificationClassifier.predict([countedAnswers])
-            if vector and (len(key_Points) >= self.data_len):
-                key_Points = [key_Points[:self.data_len]]
-                learnKeyPointsArray = np.array(key_Points)
-                samples, nx, ny = learnKeyPointsArray.shape
-                key_Points = learnKeyPointsArray.reshape((samples, nx * ny))
-                vectorAnswer = self.vectorClassifier.predict(key_Points)
+                    combine_answer = self.classificationClassifier.predict([counted_answers])
+            if vector and (len(key_points) >= self.data_len):
+                key_points = [key_points[:self.data_len]]
+                learn_key_points_array = np.array(key_points)
+                samples, nx, ny = learn_key_points_array.shape
+                key_points = learn_key_points_array.reshape((samples, nx * ny))
+                vector_answer = self.vectorClassifier.predict(key_points)
 
-        return pointAnswer, combineAnswer, vectorAnswer
+        return point_answer, combine_answer, vector_answer
