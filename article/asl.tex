@@ -1,0 +1,134 @@
+%& --translate-file=cp1250pl
+\documentclass[11pt,a4paper]{article}
+\usepackage[left=3.5cm, right=4cm, bottom=6.65cm, top=5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{setspace}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{times}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\include{pbwlib}
+
+%=========================================================================%
+%========================== Author(s) & Title ============================%
+%=========================================================================%
+
+\begin{document}
+%
+\Booktitle{Computer Systems Engineering 2007 (co tu wpisac?)}
+%
+\Keywords{american sign language, images recognition, machine learning}
+%
+\noindent Mi\l osz BIA\L CZAK\footnote{\noindent Wroc\l aw University of Science and Technology, Poland} \\
+%
+\noindent Martyna \L AGO\.ZNA\footnote{\noindent Wroc\l aw University of Science and Technology, Poland} \\[7pt]
+%
+\Title{AMERICAN SIGN LANGUAGE RECOGNITION}
+
+
+%=========================================================================%
+%============================== Abstract =================================%
+%=========================================================================%
+
+\Abstract{Z maila}
+
+
+%=========================================================================%
+%=========================== INTRODUCTION ================================%
+%=========================================================================%
+
+\section{INTRODUCTION}
+
+Ludzie nie niemi, mają problem porozumienia się z ludźmi niemymy. Ichcieluśmy to uprościć.
+
+%=========================================================================%
+%========================= PROBLEM FORMULATION ===========================%
+%=========================================================================%
+
+\section{PROBLEM FORMULATION}
+
+Problemem jest:
+
+- znalezienie cech w obrazku
+
+- uwydatnienie cech ręki
+
+- uczenie algorytmu
+
+%=========================================================================%
+%============================= ALGORITHMS ================================%
+%=========================================================================%
+
+\section{ALGORITHMS}
+
+\subsection{Preprocessing}
+
+- anisotropic filtering
+
+- gaussian blur
+
+\subsection{Features extraction}
+
+- ORB
+
+- BRIEF
+
+- CENSURE 
+
+\subsection{Postprocessing}
+
+- Normalize
+
+- Standard Scaler 
+
+\subsection{Learning}
+
+SVM
+
+- points
+
+- vector
+
+- combined
+
+%=========================================================================%
+%======================== RESULTS OF EXPERIMENTS =========================%
+%=========================================================================%
+
+\section{RESULTS OF EXPERIMENTS}
+
+Wykresy dla danych z Politechniki Śląskiej i dla naszych.
+
+
+%=========================================================================%
+%============================== CONCLUSION ===============================%
+%=========================================================================%
+
+\section{CONCLUSION}
+
+
+
+%=========================================================================%
+%============================== CONCLUSION ===============================%
+%=========================================================================%
+
+\begin{thebibliography}{99}
+\refefencesize \setlength\baselineskip{5pt}
+%
+\bibitem{CR76} CARLSON J.G. and ROWE R.G., \textit{How much does forgetting cost?} Industrial Engineering, vol. 8, 1976 pp. 40--47.
+\bibitem{GG40} GRAHAM C.H. and  GAGNE R.M., \textit{The acquisition, extinction, and spontaneous recovery of conditioned operant response}. Journal of Experimental Psychology, vol. 26, 1940, pp. 251--280.
+\bibitem{JB99} JABER Y.M. and BONNEY M., \textit{The economic manufacture/order quantity (EMQ/EOQ) and the learning curve: Past, present, and future}. International Journal of Production Economics, vol. 59, 1999, pp. 93--102.
+
+\end{thebibliography}
+
+
+
+\end{document}
