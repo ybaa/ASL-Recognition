@@ -27,9 +27,10 @@
 %
 \Keywords{american sign language, images recognition, machine learning}
 %
-\noindent Mi\l osz BIA\L CZAK\footnote{\noindent Wroc\l aw University of Science and Technology, Poland} \\
+
+\noindent Mi\l osz BIA\L CZAK\footnote{\noindent Wroc\l aw University of Science and Technology, Poland\label{pwr1}} \\
 %
-\noindent Martyna \L AGO\.ZNA\footnote{\noindent Wroc\l aw University of Science and Technology, Poland} \\[7pt]
+\noindent Martyna \L AGO\.ZNA\textsuperscript{\ref{pwr1}} \\[7pt]
 %
 \Title{AMERICAN SIGN LANGUAGE RECOGNITION}
 
@@ -39,9 +40,7 @@
 %=========================================================================%
 
 \Abstract{
-	What if the fast development of computer science, especially machine learning could help disabled people? In fact, it can and this is the topic to which the research described in this paper has been devoted. Deaf-mute people are the part of our society and it would be a great convenience both for them and speaking people which would allow for a better communication using technology.
-	
-	In this paper, the results of research concerning recognition of sign language has been shared. The research includes experimenting with the images transformations and usage of different learning and features detecting algorithms to obtain the best quality of signs recognition. In addition, the impact of background and different hands rotations on the accuracy of received results has been also the part of this work.
+	What if the fast development of computer science, especially machine learning could help disabled people? In fact, it can and this is the topic to which the research described in this paper has been devoted. Deaf-mute people are the part of our society and it would be a great convenience both for them and speaking people which would allow for a better communication using technology. In this paper, the results of research concerning recognition of sign language has been shared. The research includes experimenting with the images transformations and usage of different learning and features detecting algorithms to obtain the best quality of signs recognition. In addition the part of this work has been also the impact of background and different hands rotation.
 }
 
 
@@ -51,8 +50,18 @@
 
 \section{INTRODUCTION}
 
-Ludzie nie niemi, mają problem porozumienia się z ludźmi niemymy. Ichcieluśmy to uprościć.
+	Nowadays, using technology to solve medical issues is becoming a common practice[]. Constant and fast development of science and growing popularity of machine learning allow for creating technologically advanced appliances and complex algorithms which are aimed at helping people. Sign language recognition is an interesting and significant issue strictly connected with both machine learning and medical technology. Deaf-mute people pose X\% of the whole society[]. In the past there were no technical possibilities to facilitate their lives and communication ways. Now it is still challenging but possible so we attempted to solve this issue. 
 
+	In this work we decided to experiment with different features extraction and learning algorithms and pay particular attention on image processing. Moreover the scope of this work includes also checking the impact of background and hands rotations on received accuracy based on usage 2 completely different data sets.
+	
+	Our approach to this problem at the current stage is based on recognition of single letters from American sign language alphabet. One of the crucial assumptions of this work is recognition of images taken with average-quality camera because the algorithm which has been implemented should be available for everyone for example by a build-in camera in mobile phone or computer.
+	
+	
+	
+	
+	
+
+	
 %=========================================================================%
 %========================= PROBLEM FORMULATION ===========================%
 %=========================================================================%
@@ -67,17 +76,19 @@ Problemem jest:
 
 - uczenie algorytmu
 
+- kolor skory
+
 %=========================================================================%
 %============================= ALGORITHMS ================================%
 %=========================================================================%
 
 \section{ALGORITHMS}
 
+	In this section, the algorithms used in this work are being described.
+
 \subsection{Preprocessing}
-
-- anisotropic filtering
-
-- gaussian blur
+	
+	To prepare the set of images and improve received results Gaussian blur and anisotropic filtering has been used. Gaussian blur is a method of modification the image with Gaussian function. It is commonly used to reduce image noise and reduce details. Anisotropic filtering is a technique of enhancing the image quality... nie wiem co tu napsiac o tym, trzeba poczukac odwolania do czegos madrego o tym. In our work we used Gaussian blur to avoid recognition of unimportant and excess points which potentially could be found by the algorithm. At the same time, to sharpen the shape of hand and to not lose the main shape of the gesture anisotropic filtering has been applied.
 
 \subsection{Features extraction}
 
@@ -95,7 +106,7 @@ Problemem jest:
 
 \subsection{Learning}
 
-SVM
+Support Vector Machines (SVMs) are a set of related methods for supervised learning, applicable to both classification and regression problems. A SVM classifiers creates a maximum-margin hyperplane that lies in a transformed input space and splits the example classes, while maximizing the distance to the nearest cleanly split examples. The parameters of the solution hyperplane are derived from a quadratic programming optimization problem\cite{SVM1}.
 
 - points
 
@@ -104,10 +115,22 @@ SVM
 - combined
 
 %=========================================================================%
+%================================ EXPERIMENTS ============================%
+%=========================================================================%
+
+\section{EXPERIMENT}
+
+\subsection{Data sets}
+	In this experiment two different data sets has been used. The first one has been downloaded from the website of Silesian University of Technology[czy tu powinien byc odnosnik do tego zbioru?]. It consists of 899 images of gestures from American aplhabet form A to Y excluding J. Letters 'Z' and 'J' are moving gestures and it is impossible to show them on single picture. This data set contains images with uncontrolled background and lightning conditions, different angle of hand rotations form observer perspective and different resolution. Images are oriented both vertically and horizontally.
+	
+	The second data set used in the experiment is a self-made set of images which has been created in possibly similar lightning condition. On each image only hands at uniform, plain background has been shown. Each image has exactly the same, high resolution and all of them are oriented horizontally. The set contains images of gestures of all American sign alphabet also with 'J' and 'Z' excluded.
+
+
+%=========================================================================%
 %======================== RESULTS OF EXPERIMENTS =========================%
 %=========================================================================%
 
-\section{RESULTS OF EXPERIMENTS}
+\section{RESULTS}
 
 Wykresy dla danych z Politechniki Śląskiej i dla naszych.
 
@@ -116,20 +139,27 @@ Wykresy dla danych z Politechniki Śląskiej i dla naszych.
 %============================== CONCLUSION ===============================%
 %=========================================================================%
 
-\section{CONCLUSION}
+\section{CONCLUSION AND PERSPECTIVES}
 
 
 
 %=========================================================================%
-%============================== CONCLUSION ===============================%
+%============================== BIBLIOGRAPHY ===============================%
 %=========================================================================%
 
 \begin{thebibliography}{99}
 \refefencesize \setlength\baselineskip{5pt}
 %
+\bibitem{SVM1} Shmilovici Armin \textit{Support Vector Machines} Data Mining and Knowledge Discovery Handbook pp 231-247.
+
+
+
+
+EXAMPLES:
 \bibitem{CR76} CARLSON J.G. and ROWE R.G., \textit{How much does forgetting cost?} Industrial Engineering, vol. 8, 1976 pp. 40--47.
 \bibitem{GG40} GRAHAM C.H. and  GAGNE R.M., \textit{The acquisition, extinction, and spontaneous recovery of conditioned operant response}. Journal of Experimental Psychology, vol. 26, 1940, pp. 251--280.
 \bibitem{JB99} JABER Y.M. and BONNEY M., \textit{The economic manufacture/order quantity (EMQ/EOQ) and the learning curve: Past, present, and future}. International Journal of Production Economics, vol. 59, 1999, pp. 93--102.
+
 
 \end{thebibliography}
 
