@@ -15,6 +15,7 @@
 \usepackage{times}
 \usepackage{algorithmic}
 \usepackage{algorithm}
+\usepackage{multirow}
 \include{pbwlib}
 
 %=========================================================================%
@@ -74,9 +75,7 @@
 
 * emphasizing of hand features
 	
-* finding satisfying way of learning the algorithm
-	
-* correct recognition independently of skin color.
+* finding satisfying way of learning the algorithm.
 
 
 
@@ -139,7 +138,94 @@ Support Vector Machines (SVMs) are a set of related methods for supervised learn
 
 \section{RESULTS}
 
-Wykresy dla danych z Politechniki Śląskiej i dla naszych.
+Bla... Bla... Bla... Results of research by adding next step to algorithm.
+
+OPTION A 
+
+%Wykresy dla danych z Politechniki Śląskiej i dla naszych.
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|}
+	\cline{2-10}
+	\multirow{2}{*}{ } & \multicolumn{3}{ |c| }{ORB} & \multicolumn{3}{ |c| }{CENSURE} & \multicolumn{3}{ |c| }{BRIEF} \\
+	\cline{2-10}
+	& points & combine & vector & points & combine & vector & points & combine & vector \\
+	\hline
+	\multicolumn{1}{ |c| }{descriptors} & 51.72\% & 13.79\% & 13.79\% & 20.69\% & 13.79\% & 8.61\% & 15.52\% & 15.52\% & 0.00\% \\
+	\hline
+	\multicolumn{1}{ |c| }{anisotropic filtering} & 60.34\% & 13.79\% & 13.79\% & 22.41\% & 18.97\% & 1.72\% & - & - & - \\
+	\hline
+	\multicolumn{1}{ |c| }{StandardScaler} & 91.38\% & 12.07\% & 13.79\% & 15.52\% & 15.52\% & 0.00\% & - & - & - \\
+	\hline
+	\multicolumn{1}{ |c| }{Gaussian blur} & 94.84\% & 13.79\% & 22.41\% & 12.07\% & 5.17\% & 1.72\% & - & - & - \\
+	\hline
+	\multicolumn{1}{ |c| }{normalization} & 96.55\% & 12.07\% & 25.86\% & - & - & - & - & - & - \\
+	\hline
+\end{tabular} \\\\
+
+OPTION B 
+
+\begin{tabular}{c|c|c|c|}
+	\cline{2-4}
+	\multirow{2}{*}{ } & \multicolumn{3}{ |c| }{ORB} \\
+	\cline{2-4}
+	& points & combine & vector \\
+	\hline
+	\multicolumn{1}{ |c| }{descriptors} & 51.72\% & 13.79\% & 13.79\% \\
+	\hline
+	\multicolumn{1}{ |c| }{anisotropic filtering} & 60.34\% & 13.79\% & 13.79\% \\
+	\hline
+	\multicolumn{1}{ |c| }{StandardScaler} & 91.38\% & 12.07\% & 13.79\% \\
+	\hline
+	\multicolumn{1}{ |c| }{Gaussian blur} & 94.84\% & 13.79\% & 22.41\% \\
+	\hline
+	\multicolumn{1}{ |c| }{normalization} & 96.55\% & 12.07\% & 25.86\% \\
+	\hline
+\end{tabular} \\\\
+
+\begin{tabular}{c|c|c|c|}
+\cline{2-4}
+\multirow{2}{*}{ } & \multicolumn{3}{ |c| }{CENSURE} \\
+\cline{2-4}
+& points & combine & vector \\
+\hline
+\multicolumn{1}{ |c| }{descriptors} & 20.69\% & 13.79\% & 8.61\% \\
+\hline
+\multicolumn{1}{ |c| }{anisotropic filtering} & 22.41\% & 18.97\% & 1.72\% \\
+\hline
+\multicolumn{1}{ |c| }{StandardScaler} & 15.52\% & 15.52\% & 0.00\% \\
+\hline
+\multicolumn{1}{ |c| }{Gaussian blur} & 12.07\% & 5.17\% & 1.72\% \\
+\hline
+\end{tabular} \\\\
+
+\begin{tabular}{c|c|c|c|}
+\cline{2-4}
+\multirow{2}{*}{ } & \multicolumn{3}{ |c| }{BRIEF} \\
+\cline{2-4}
+& points & combine & vector \\
+\hline
+\multicolumn{1}{ |c| }{descriptors} & 15.52\% & 15.52\% & 0.00\% \\
+\hline
+\end{tabular} \\\\
+
+
+
+Bla... Bla... Bla... Results of research for different datasets by final algorithm.\\
+
+
+\begin{tabular}{|p{5cm}|c|c|c|}
+	%\hline
+	\cline{1-4}
+	\multirow{2}{*}{ } & \multicolumn{3}{ |c| }{ORB} \\
+	\cline{2-4}
+	& points & combine & vector\\
+	\hline
+	Our set of numbers & 96.55\% & 12.07\% & 25.86\% \\
+	\hline
+	Our set of alphabet & 72.90\% & 3.23\% & 12.26\% \\
+	\hline
+	Set of Silesian University of Technology alphabet & 27.36\% & 3.48\% & 2.49\% \\
+	\hline
+\end{tabular} 
 
 
 %=========================================================================%
@@ -149,6 +235,7 @@ Wykresy dla danych z Politechniki Śląskiej i dla naszych.
 \section{CONCLUSION AND PERSPECTIVES}
 
 
+* correct recognition independently of skin color
 
 %=========================================================================%
 %============================== BIBLIOGRAPHY ===============================%
