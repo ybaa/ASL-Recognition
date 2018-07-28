@@ -98,27 +98,27 @@
 
 \subsection{Features extraction}
 
-- ORB
+- CENSURE - new we give o shot
 
-- BRIEF
+- BRIEF - old without of rotation features
 
-- CENSURE 
+- ORB - boosted BRIEF good working with rotations
 
 \subsection{Postprocessing}
 
-- Normalize
+- Standard Scaler - other kind of normalization with point of mass
 
-- Standard Scaler 
+- Normalize - one kind of normalization
 
 \subsection{Learning}
 
 Support Vector Machines (SVMs) are a set of related methods for supervised learning, applicable to both classification and regression problems. A SVM classifiers creates a maximum-margin hyperplane that lies in a transformed input space and splits the example classes, while maximizing the distance to the nearest cleanly split examples. The parameters of the solution hyperplane are derived from a quadratic programming optimization problem\cite{SVM1}.
 
-- points
+- points - algorithm learned point after point from picture, with saying "that point is from that sign".
 
-- vector
+- vector - algorithm learned by vector of points from picture with information "vector like that is that sign".
 
-- combined
+- combined - using both points and vector classifiers, and learn from they outputs, with one is correct.  
 
 %=========================================================================%
 %================================ EXPERIMENTS ============================%
