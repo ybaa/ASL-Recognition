@@ -15,7 +15,7 @@
 \usepackage{times}
 \usepackage{algorithmic}
 \usepackage{algorithm}
-\usepackage{multirow}
+\usepackage{array,multirow,graphicx}
 \include{pbwlib}
 
 %=========================================================================%
@@ -90,35 +90,66 @@
 
 \section{ALGORITHMS}
 
-	In this section, the algorithms used in this work are being described.
+	In this section, the algorithms used in this work are being
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Algorithm.png}
+		\caption{Preprocessing data flow}
+		\label{fig:Algorithm}
+	\end{figure} 
 
 \subsection{Preprocessing}
 	
 	To prepare the set of images and improve received results Gaussian blur and anisotropic filtering has been used. Gaussian blur is a method of modification the image with Gaussian function. It is commonly used to reduce image noise and reduce details. Anisotropic filtering is a technique of enhancing the image quality... nie wiem co tu napsiac o tym, trzeba poczukac odwolania do czegos madrego o tym. In our work we used Gaussian blur to avoid recognition of unimportant and excess points which potentially could be found by the algorithm. At the same time, to sharpen the shape of hand and to not lose the main shape of the gesture anisotropic filtering has been applied.
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Preprocessing.png}
+		\caption{Preprocessing data flow}
+		\label{fig:Preprocessing}
+	\end{figure}
 
 \subsection{Features extraction}
 
-- CENSURE - new we give o shot
+In our research we use three different feature extractors from \textit{ski-image} library, to find with one will be bather to our purposes.
 
-- BRIEF - old without of rotation features
-
-- ORB - boosted BRIEF good working with rotations
+\begin{itemize}
+	\item \textit{CENSURE}\cite{CENSURE} - The new on kind of extractor, witch biggest feature is fast compute time, what make it a good candidate project purposes. Unfortunate CENSURE find only the key point on the picture and to take descriptors from them in need to be supported other descriptors extractor, in our implementation that was BRIEF.
+	
+	\item \textit{BRIEF}\cite{BRIEF} - Binary Robust Independent Elementary Features is an efficient feature point descriptor. The standard feature extraction method with. It is highly discriminative even when using relatively few bits and is computed using simple intensity difference tests. That extractor have also one difficulty, it's not good working with rotations. 
+	
+	\item \textit{ORB}\cite{ORB} - Oriented FAST\cite{FAST} and rotated BRIEF feature detector and binary descriptor extractor. It is based on FAST key point detector and modified BRIEF to good work with rotations. It's also fast compute so it is preferred for real-time applications, that why we also interested in it.
+\end{itemize}
 
 \subsection{Postprocessing}
 
-- Standard Scaler - other kind of normalization with point of mass
+After features extraction and before classifier learning, extracted data need some improvement, to be more reliable. To do that we use two steps normalization.
 
-- Normalize - one kind of normalization
+\begin{itemize}
+	\item \textit{Normalize} \cite{PREPROCESSING}  - rescales the vector for each sample to have unit norm, independently of the distribution of the samples.
+	
+	\item \textit{Standard Scaler} \cite{PREPROCESSING}  - removes the mean and scales the data to unit variance. However, the outliers have an influence when computing the empirical mean and standard deviation which shrink the range of the feature values. Standard Scaler unfortunately cannot guarantee balanced feature scales in the presence of outliers.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Postprocessing.png}
+	\caption{Posteprocessing data flow}
+	\label{fig:Posteprocessing}
+\end{figure}
 
 \subsection{Learning}
 
 Support Vector Machines (SVMs) are a set of related methods for supervised learning, applicable to both classification and regression problems. A SVM classifiers creates a maximum-margin hyperplane that lies in a transformed input space and splits the example classes, while maximizing the distance to the nearest cleanly split examples. The parameters of the solution hyperplane are derived from a quadratic programming optimization problem\cite{SVM1}.
 
-- points - algorithm learned point after point from picture, with saying "that point is from that sign".
-
-- vector - algorithm learned by vector of points from picture with information "vector like that is that sign".
-
-- combined - using both points and vector classifiers, and learn from they outputs, with one is correct.  
+\begin{itemize}
+	\item vector - classifier learned by vector of descriptors from picture with informing what letter is on the picture. That way have a big disadvantaged, because vectors to classifier need to have o the same length, so do big vectors need to be catted, also to short vectors are ignored.
+	
+	\item points - classifier learned descriptor after descriptor from picture, with information to what letter is connected. That way of learning make algorithm independent to data vector length.
+	
+	\item combined - using both points and vector classifiers, and learn from they outputs, with one is correct.
+\end{itemize}
 
 %=========================================================================%
 %================================ EXPERIMENTS ============================%
@@ -138,94 +169,61 @@ Support Vector Machines (SVMs) are a set of related methods for supervised learn
 
 \section{RESULTS}
 
-Bla... Bla... Bla... Results of research by adding next step to algorithm.
+While the research we adding the new steps to algorithm. And what related to that, by looking on results we in some steps stop using some feature extractors. To understood that behave here is a table with results of research by adding next step to algorithm.
 
-OPTION A 
 
 %Wykresy dla danych z Politechniki Śląskiej i dla naszych.
-\begin{tabular}{c|c|c|c|c|c|c|c|c|c|}
-	\cline{2-10}
-	\multirow{2}{*}{ } & \multicolumn{3}{ |c| }{ORB} & \multicolumn{3}{ |c| }{CENSURE} & \multicolumn{3}{ |c| }{BRIEF} \\
-	\cline{2-10}
-	& points & combine & vector & points & combine & vector & points & combine & vector \\
-	\hline
-	\multicolumn{1}{ |c| }{descriptors} & 51.72\% & 13.79\% & 13.79\% & 20.69\% & 13.79\% & 8.61\% & 15.52\% & 15.52\% & 0.00\% \\
-	\hline
-	\multicolumn{1}{ |c| }{anisotropic filtering} & 60.34\% & 13.79\% & 13.79\% & 22.41\% & 18.97\% & 1.72\% & - & - & - \\
-	\hline
-	\multicolumn{1}{ |c| }{StandardScaler} & 91.38\% & 12.07\% & 13.79\% & 15.52\% & 15.52\% & 0.00\% & - & - & - \\
-	\hline
-	\multicolumn{1}{ |c| }{Gaussian blur} & 94.84\% & 13.79\% & 22.41\% & 12.07\% & 5.17\% & 1.72\% & - & - & - \\
-	\hline
-	\multicolumn{1}{ |c| }{normalization} & 96.55\% & 12.07\% & 25.86\% & - & - & - & - & - & - \\
-	\hline
-\end{tabular} \\\\
-
-OPTION B 
-
-\begin{tabular}{c|c|c|c|}
-	\cline{2-4}
-	\multirow{2}{*}{ } & \multicolumn{3}{ |c| }{ORB} \\
-	\cline{2-4}
-	& points & combine & vector \\
-	\hline
-	\multicolumn{1}{ |c| }{descriptors} & 51.72\% & 13.79\% & 13.79\% \\
-	\hline
-	\multicolumn{1}{ |c| }{anisotropic filtering} & 60.34\% & 13.79\% & 13.79\% \\
-	\hline
-	\multicolumn{1}{ |c| }{StandardScaler} & 91.38\% & 12.07\% & 13.79\% \\
-	\hline
-	\multicolumn{1}{ |c| }{Gaussian blur} & 94.84\% & 13.79\% & 22.41\% \\
-	\hline
-	\multicolumn{1}{ |c| }{normalization} & 96.55\% & 12.07\% & 25.86\% \\
-	\hline
-\end{tabular} \\\\
-
-\begin{tabular}{c|c|c|c|}
-\cline{2-4}
-\multirow{2}{*}{ } & \multicolumn{3}{ |c| }{CENSURE} \\
-\cline{2-4}
-& points & combine & vector \\
-\hline
-\multicolumn{1}{ |c| }{descriptors} & 20.69\% & 13.79\% & 8.61\% \\
-\hline
-\multicolumn{1}{ |c| }{anisotropic filtering} & 22.41\% & 18.97\% & 1.72\% \\
-\hline
-\multicolumn{1}{ |c| }{StandardScaler} & 15.52\% & 15.52\% & 0.00\% \\
-\hline
-\multicolumn{1}{ |c| }{Gaussian blur} & 12.07\% & 5.17\% & 1.72\% \\
-\hline
-\end{tabular} \\\\
-
-\begin{tabular}{c|c|c|c|}
-\cline{2-4}
-\multirow{2}{*}{ } & \multicolumn{3}{ |c| }{BRIEF} \\
-\cline{2-4}
-& points & combine & vector \\
-\hline
-\multicolumn{1}{ |c| }{descriptors} & 15.52\% & 15.52\% & 0.00\% \\
-\hline
-\end{tabular} \\\\
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|>{\centering}p{1.55cm}|>{\centering}p{1.55cm}|>{\centering}p{1.25cm}|>{\centering}p{1.25cm}|p{2cm}|}
+		\cline{3-7}
+		\multicolumn{2}{ c| }{}& descriptors & anisotropic filtering & Standard Scaler & Gaussian blur & normalization \\
+		\hline
+		\multirow{3}{*}{ \rotatebox[origin=c]{90}{\parbox[c]{3.5cm}{\centering ORB} }} & \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering points}} & 51.72\% & 60.34\% & 91.38\% & 94.84\% & \multicolumn{1}{c|}{ 96.55\% } \\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.8cm}{\centering combined}} & 13.79\% & 13.79\% & 12.07\% & 13.79\% & \multicolumn{1}{c|}{ 12.07\% } \\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering vector}} & 13.79\% & 13.79\% & 13.79\% & 22.41\% & \multicolumn{1}{c|}{ 25.86\% } \\
+		\hline
+		\multirow{3}{*}{ \rotatebox[origin=c]{90}{\parbox[c]{3.5cm}{\centering CENSURE} }} & \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering points}} & 20.69\% & 22.41\% & 15.52\% & 12.07\% & \multicolumn{1}{c|}{ -} \\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.8cm}{\centering combined}} & 13.79\% & 18.97\% & 15.52\% & 5.17\% & \multicolumn{1}{c|}{ -} \\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering vector}} & 8.61\% & 1.72\% & 0.00\% & 1.72\% & \multicolumn{1}{c|}{ -} \\
+		\hline
+		\multirow{3}{*}{ \rotatebox[origin=c]{90}{\parbox[c]{3.5cm}{\centering BRIEF} }} & \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering points}} & 15.52\% & - & - & - & \multicolumn{1}{c|}{ -}\\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.8cm}{\centering combined}} & 15.52\% & - & - & - & \multicolumn{1}{c|}{ -} \\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering vector}} & 0.00\% & - & - & - & \multicolumn{1}{c|}{ -} \\
+		\hline
+	\end{tabular}
+	\caption{Research results by adding algorithm steps}
+	\label{tab:results_by_steps}
+\end{table}
 
 
+Final algorithm was tied on three before mention datasets. Results of that test are below.\\
 
-Bla... Bla... Bla... Results of research for different datasets by final algorithm.\\
 
-
-\begin{tabular}{|p{5cm}|c|c|c|}
-	%\hline
-	\cline{1-4}
-	\multirow{2}{*}{ } & \multicolumn{3}{ |c| }{ORB} \\
-	\cline{2-4}
-	& points & combine & vector\\
-	\hline
-	Our set of numbers & 96.55\% & 12.07\% & 25.86\% \\
-	\hline
-	Our set of alphabet & 72.90\% & 3.23\% & 12.26\% \\
-	\hline
-	Set of Silesian University of Technology alphabet & 27.36\% & 3.48\% & 2.49\% \\
-	\hline
-\end{tabular} 
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|p{5cm}|c|c|c|}
+		\cline{1-4}
+		\multirow{2}{*}{ datasets } & \multicolumn{3}{ |c| }{ORB} \\
+		\cline{2-4}
+		& points & combined & vector\\
+		\cline{1-4}
+		Our set of numbers & 96.55\% & 12.07\% & 25.86\% \\
+		\cline{1-4}
+		Our set of alphabet & 72.90\% & 3.23\% & 12.26\% \\
+		\cline{1-4}
+		Set of Silesian University of Technology alphabet & 27.36\% & 3.48\% & 2.49\% \\
+		\cline{1-4}
+	\end{tabular}
+	\caption{Research results by datasets}
+	\label{tab:results_by_datasets}
+\end{table} 
 
 
 %=========================================================================%
@@ -234,8 +232,7 @@ Bla... Bla... Bla... Results of research for different datasets by final algorit
 
 \section{CONCLUSION AND PERSPECTIVES}
 
-
-* correct recognition independently of skin color
+After our research we can say the final algorithm we describe is a good base to recognize non-moved gestures on eve background.
 
 %=========================================================================%
 %============================== BIBLIOGRAPHY ===============================%
@@ -244,19 +241,33 @@ Bla... Bla... Bla... Results of research for different datasets by final algorit
 \begin{thebibliography}{99}
 \refefencesize \setlength\baselineskip{5pt}
 %
+
+\bibitem{CENSURE} 
+Adam Schmidt, Marek Kraft, Micha\l $ $ Fularz, Zuzanna Domaga\l a 
+\textit{Comparative Assessment of Point Feature Detectors and Descriptors in the Context of Robot Navigation},
+Journal of Automation, Mobile Robotics \& Intelligent Systems vol.7 2013.
+\bibitem{BRIEF} 
+Michael Calonder, Vincent Lepetit, Christoph Strecha, and Pascal Fua, 
+\textit{BRIEF: Binary Robust Independent Elementary Features}, 11th European Conference on Computer Vision (ECCV), Heraklion, Crete. LNCS Springer, September 2010.
+\bibitem{ORB} 
+Ethan Rublee, Vincent Rabaud, Kurt Konolige and Gary Bradski, 
+\textit{ORB: an efficient alternative to SIFT or SURF}
+ \bibitem{FAST} 
+ Edward Rosten and Tom Drummond
+\textit{Machine learning for high-speed corner detection},
+ 2006.
+\bibitem{PREPROCESSING} 
+Compare the effect of different scalers on data with outliers,
+\textit{http://scikit-learn.org/stable/auto\_examples/preprocessing/plot\_all\_scaling.html},
+July 2018.
 \bibitem{SVM1} Shmilovici Armin \textit{Support Vector Machines} Data Mining and Knowledge Discovery Handbook pp 231-247.
-
-
-
-
-EXAMPLES:
-\bibitem{CR76} CARLSON J.G. and ROWE R.G., \textit{How much does forgetting cost?} Industrial Engineering, vol. 8, 1976 pp. 40--47.
-\bibitem{GG40} GRAHAM C.H. and  GAGNE R.M., \textit{The acquisition, extinction, and spontaneous recovery of conditioned operant response}. Journal of Experimental Psychology, vol. 26, 1940, pp. 251--280.
-\bibitem{JB99} JABER Y.M. and BONNEY M., \textit{The economic manufacture/order quantity (EMQ/EOQ) and the learning curve: Past, present, and future}. International Journal of Production Economics, vol. 59, 1999, pp. 93--102.
 
 
 \end{thebibliography}
 
+\listoffigures
+
+\listoftables
 
 
 \end{document}
