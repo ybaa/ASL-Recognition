@@ -41,7 +41,7 @@
 %=========================================================================%
 
 \Abstract{
-	What if the fast development of computer science, especially machine learning could help disabled people? In fact, it can and this is the topic to which the research described in this paper has been devoted. Deaf-mute people are the part of our society and it would be a great convenience both for them and speaking people which would allow for a better communication using technology. In this paper, the results of research concerning recognition of sign language has been shared. The research includes experimenting with the images transformations and usage of different learning and features detecting algorithms to obtain the best quality of signs recognition. In addition the part of this work has been also the impact of background and different hands rotation.
+	What if the fast development of computer science, especially machine learning could help disabled people? In fact, it can and this is the topic to which the research described in this paper has been devoted. Deaf-mute people are the part of our society and it would be a great convenience both for them and speaking people which would allow for a better communication using technology. In this paper, the results of research concerning recognition of sign language has been shared. The research includes experimenting with the images transformations and usage of different learning and features detecting algorithms to obtain the best quality of signs recognition. In addition the part of this work has been also the impact of background and different hands rotation on accuracy.
 }
 
 
@@ -112,19 +112,19 @@
 
 \subsection{Features extraction}
 
-In our research we use three different feature extractors from \textit{ski-image} library, to find with one will be bather to our purposes.
+In this research, three different features extractors from \textit{ski-image} library has been used. The purpose of using many extractors was finding the best one in this specific problem. Used feature extraction algorithms are:
 
 \begin{itemize}
-	\item \textit{CENSURE}\cite{CENSURE} - The new on kind of extractor, witch biggest feature is fast compute time, what make it a good candidate project purposes. Unfortunate CENSURE find only the key point on the picture and to take descriptors from them in need to be supported other descriptors extractor, in our implementation that was BRIEF.
+	\item \textit{CENSURE}\cite{CENSURE} - the newest algorithm from all used in the experiment. Its undeniably biggest advantage is fast computing time which makes him an aspiring one to be appropriate for our goal. Unfortunately CENSURE is able to find only key points but not descriptors on the picture. To retrieve the descriptors, some other descriptors extractor has to be used. In our implementation descriptors has been acquired with usage of BRIEF. 
 	
-	\item \textit{BRIEF}\cite{BRIEF} - Binary Robust Independent Elementary Features is an efficient feature point descriptor. The standard feature extraction method with. It is highly discriminative even when using relatively few bits and is computed using simple intensity difference tests. That extractor have also one difficulty, it's not good working with rotations. 
+	\item \textit{BRIEF}\cite{BRIEF} - Binary Robust Independent Elementary Features is an efficient feature point descriptor. It is highly discriminative even when using relatively few bits and is computed using simple intensity difference tests[]. The main disadvantage of this extractor is its inability to sensible dealing with images rotations.
 	
-	\item \textit{ORB}\cite{ORB} - Oriented FAST\cite{FAST} and rotated BRIEF feature detector and binary descriptor extractor. It is based on FAST key point detector and modified BRIEF to good work with rotations. It's also fast compute so it is preferred for real-time applications, that why we also interested in it.
+	\item \textit{ORB}\cite{ORB} - Oriented FAST\cite{FAST} and rotated BRIEF is a feature detector and binary descriptor extractor. It is based on FAST key point detector and modified BRIEF. In this algorithm the problem of images rotations has been solved and it is supposed to work well. Because of its ability to fast computing the algorithm seems to be appropriate to use for real-time applications. Considering described features of BRIEF we found it to be relevant for our goal.
 \end{itemize}
 
 \subsection{Postprocessing}
 
-After features extraction and before classifier learning, extracted data need some improvement, to be more reliable. To do that we use two steps normalization.
+Between features extraction and classifier learning, extracted data are required to be processed and improved to become more reliable. For this step, 2 kinds of normalization has been implemented as follows:
 
 \begin{itemize}
 	\item \textit{Normalize} \cite{PREPROCESSING}  - rescales the vector for each sample to have unit norm, independently of the distribution of the samples.
@@ -141,14 +141,16 @@ After features extraction and before classifier learning, extracted data need so
 
 \subsection{Learning}
 
-Support Vector Machines (SVMs) are a set of related methods for supervised learning, applicable to both classification and regression problems. A SVM classifiers creates a maximum-margin hyperplane that lies in a transformed input space and splits the example classes, while maximizing the distance to the nearest cleanly split examples. The parameters of the solution hyperplane are derived from a quadratic programming optimization problem\cite{SVM1}.
+Support Vector Machines (SVMs) are a set of related methods for supervised learning, applicable to both classification and regression problems. A SVM classifiers creates a maximum-margin hyperplane that lies in a transformed input space and splits the example classes, while maximizing the distance to the nearest cleanly split examples. The parameters of the solution hyperplane are derived from a quadratic programming optimization problem\cite{SVM1}. In this research methods has been used as follows:
 
 \begin{itemize}
-	\item vector - classifier learned by vector of descriptors from picture with informing what letter is on the picture. That way have a big disadvantaged, because vectors to classifier need to have o the same length, so do big vectors need to be catted, also to short vectors are ignored.
+	\item vector - classifier learns with usage of vector of descriptors retrieved from picture and the information about correct letter on the image. 
+This method has a significant disadvantage. Vectors received by the classifier must have exactly the same length which as a consequence extorts cutting the longer ones and ignoring too short ones.
 	
-	\item points - classifier learned descriptor after descriptor from picture, with information to what letter is connected. That way of learning make algorithm independent to data vector length.
+	\item points - classifier learns by processing descriptor after descriptor and the information about related letter form picture. This way of learning makes the algorithm independent from data vector length.
 	
-	\item combined - using both points and vector classifiers, and learn from they outputs, with one is correct.
+	\item combined - the output from both vector and points classifiers are taken into consideration. Classifier learns by taking those outputs and the information about correct answer.
+	
 \end{itemize}
 
 %=========================================================================%
@@ -169,7 +171,7 @@ Support Vector Machines (SVMs) are a set of related methods for supervised learn
 
 \section{RESULTS}
 
-While the research we adding the new steps to algorithm. And what related to that, by looking on results we in some steps stop using some feature extractors. To understood that behave here is a table with results of research by adding next step to algorithm.
+During the research the successive steps has been added to the algorithm. As a result, at some steps we decided to abandon working with some feature extractors because of their unsatisfying accuracy in comparison to the others. The table containing the results has been presented below.
 
 
 %Wykresy dla danych z Politechniki Śląskiej i dla naszych.
@@ -202,9 +204,7 @@ While the research we adding the new steps to algorithm. And what related to tha
 	\label{tab:results_by_steps}
 \end{table}
 
-
-Final algorithm was tied on three before mention datasets. Results of that test are below.\\
-
+The final version of the implemented algorithm has been tested at three different data sets mentioned before. The results are presented below.
 
 \begin{table}[H]
 	\centering
@@ -232,6 +232,7 @@ Final algorithm was tied on three before mention datasets. Results of that test 
 
 \section{CONCLUSION AND PERSPECTIVES}
 
+a to jutro :)
 After our research we can say the final algorithm we describe is a good base to recognize non-moved gestures on eve background.
 
 %=========================================================================%
