@@ -69,14 +69,14 @@
 
 \section{PROBLEM FORMULATION}
 
-	The objective of this work is to create an algorithm which recognizes static gestures of single letters from American sign language alphabet with the highest possible accuracy. The algorithm should be given an image in .jpg format on input and the result should be returned as recognized letter on string type. To implement the algorithm, it is necessary to consider the problems as follows:
-	
-* finding crucial features and point on the picture
+	The objective of this work is to create an algorithm which recognizes static gestures of single letters from American sign language alphabet with the highest possible accuracy. The algorithm should be given an image on input and the result should be returned as recognized letter on string type. To implement the algorithm, it is necessary to consider the problems as follows:
+\begin{itemize}	
+\item finding crucial features on the picture
 
-* emphasizing of hand features
+\item emphasizing of hand features
 	
-* finding satisfying way of learning the algorithm.
-
+\item  finding satisfying way of learning the algorithm.
+\end{itemize}
 
 
 
@@ -90,17 +90,17 @@
 
 \section{ALGORITHMS}
 
-	In this section, the algorithms used in this work are being
+	In this section, the algorithms used in this work have been described.
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.9\textwidth]{Algorithm.png}
-		\caption{Preprocessing data flow}
+		\caption{Data flow}
 		\label{fig:Algorithm}
 	\end{figure} 
 
 \subsection{Preprocessing}
 	
-	To prepare the set of images and improve received results Gaussian blur and anisotropic filtering has been used. Gaussian blur is a method of modification the image with Gaussian function. It is commonly used to reduce image noise and reduce details. Anisotropic filtering is a technique of enhancing the image quality... nie wiem co tu napsiac o tym, trzeba poczukac odwolania do czegos madrego o tym. In our work we used Gaussian blur to avoid recognition of unimportant and excess points which potentially could be found by the algorithm. At the same time, to sharpen the shape of hand and to not lose the main shape of the gesture anisotropic filtering has been applied.
+	To prepare the set of images and improve received results Gaussian blur and anisotropic filtering has been used. Gaussian blur is a method of modification the image with Gaussian function. It is commonly used to reduce image noise and reduce details. Anisotropic filtering is a technique of enhancing the image quality and edges sharpening. In our work we used Gaussian blur to avoid recognition of unimportant and excess points which potentially could be found by the algorithm. At the same time, to sharpen the shape of hand and to not lose the main shape of the gesture anisotropic filtering has been applied.
 	
 	
 	\begin{figure}[H]
@@ -154,12 +154,11 @@ This method has a significant disadvantage. Vectors received by the classifier m
 \end{itemize}
 
 %=========================================================================%
-%================================ EXPERIMENTS ============================%
+%================================ DATA SETS ==============================%
 %=========================================================================%
 
-\section{EXPERIMENT}
+\section{DATA SETS}
 
-\subsection{Data sets}
 	In this experiment two different data sets has been used. The first one has been downloaded from the website of Silesian University of Technology[czy tu powinien byc odnosnik do tego zbioru?]. It consists of 899 images of gestures from American aplhabet form A to Y excluding J. Letters 'Z' and 'J' are moving gestures and it is impossible to show them on single picture. This data set contains images with uncontrolled background and lightning conditions, different angle of hand rotations form observer perspective and different resolution. Images are oriented both vertically and horizontally.
 	
 	The second data set used in the experiment is a self-made set of images which has been created in possibly similar lightning condition. On each image only hands at uniform, plain background has been shown. Each image has exactly the same, high resolution and all of them are oriented horizontally. The set contains images of gestures of all American sign alphabet also with 'J' and 'Z' excluded.
@@ -169,9 +168,9 @@ This method has a significant disadvantage. Vectors received by the classifier m
 %======================== RESULTS OF EXPERIMENTS =========================%
 %=========================================================================%
 
-\section{RESULTS}
+\section{EXPERIMENT AND RESULTS}
 
-During the research the successive steps has been added to the algorithm. As a result, at some steps we decided to abandon working with some feature extractors because of their unsatisfying accuracy in comparison to the others. The table containing the results has been presented below.
+During the research the successive steps has been added to the algorithm. As a result, at some steps we decided to abandon working with some feature extractors because of their unsatisfying accuracy in comparison to the others. The table containing the results with the percentage values of correct recognition has been presented below.
 
 
 %Wykresy dla danych z Politechniki Śląskiej i dla naszych.
@@ -200,7 +199,7 @@ During the research the successive steps has been added to the algorithm. As a r
 		& \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering vector}} & 0.00\% & - & - & - & \multicolumn{1}{c|}{ -} \\
 		\hline
 	\end{tabular}
-	\caption{Research results by adding algorithm steps}
+	\caption{Results dependent on adding next steps to the algorithm}
 	\label{tab:results_by_steps}
 \end{table}
 
@@ -221,7 +220,7 @@ The final version of the implemented algorithm has been tested at three differen
 		Set of Silesian University of Technology alphabet & 27.36\% & 3.48\% & 2.49\% \\
 		\cline{1-4}
 	\end{tabular}
-	\caption{Research results by datasets}
+	\caption{Results dependent on data sets}
 	\label{tab:results_by_datasets}
 \end{table} 
 
@@ -232,11 +231,17 @@ The final version of the implemented algorithm has been tested at three differen
 
 \section{CONCLUSION AND PERSPECTIVES}
 
-a to jutro :)
-After our research we can say the final algorithm we describe is a good base to recognize non-moved gestures on eve background.
+Among all used features extractors ORB occurred to be the most effective for described problem. Probably, its ability to dealing with rotations had a big impact at obtained results. The best method of learning the classifier occurred to be the way of learning by points. Algorithms used at every next steps to improve the result really improved the accuracy. Adding Standard Scaler was a crucial step and had significant impact at the result.
+
+As it can be seen on the table 2, the algorithm works satisfying for gestures on plain background. In case of adding distorting background like eg. check shirt, the working of algothirm leaves a lot to be desired and that should be solved in the nearest future.
+
+To sum up, we managed to implement an algorithm which can pose a good basis to continue this research. In this version, recognition of static gestures on plain background works perfectly fine. For this moment, the next problem which could be solved is imppplementation of recognition of moving signs and elimination the problem of background. To further improve the accuracy it would be good idea to impelemtn special classifier only for mistaken gestures.
+
+
+
 
 %=========================================================================%
-%============================== BIBLIOGRAPHY ===============================%
+%============================== BIBLIOGRAPHY =============================%
 %=========================================================================%
 
 \begin{thebibliography}{99}
@@ -265,10 +270,6 @@ July 2018.
 
 
 \end{thebibliography}
-
-\listoffigures
-
-\listoftables
 
 
 \end{document}
