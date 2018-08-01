@@ -16,11 +16,8 @@
 \usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{array,multirow,graphicx}
-\include{pbwlib}
-
 \usepackage{pgfplots}
-
-
+\include{pbwlib}
 
 %=========================================================================%
 %========================== Author(s) & Title ============================%
@@ -55,7 +52,7 @@
 
 \section{INTRODUCTION}
 
-	Nowadays, using technology to solve medical issues is becoming a common practice[]. Constant and fast development of science and growing popularity of machine learning allow for creating technologically advanced appliances and complex algorithms which are aimed at helping people. Sign language recognition is an interesting and significant issue strictly connected with both machine learning and medical technology. Deaf-mute people pose X\% of the whole society[]. In the past there were no technical possibilities to facilitate their lives and communication ways. Now it is still challenging but possible so we attempted to solve this issue. 
+	Nowadays, using technology to solve medical issues is becoming a common practice. Constant and fast development of science and growing popularity of machine learning allow for creating technologically advanced appliances and complex algorithms which are aimed at helping people. Sign language recognition is an interesting and significant issue strictly connected with both machine learning and medical technology. People with disabling hearing loss pose X\% of the whole society\cite{DEAF}. In the past there were no technical possibilities to facilitate their lives and communication ways. Now it is still challenging but possible so we attempted to solve this issue. 
 
 	In this work we decided to experiment with different features extraction and learning algorithms and pay particular attention on image processing. Moreover the scope of this work includes also checking the impact of background and hands rotations on received accuracy based on usage 2 completely different data sets.
 	
@@ -121,9 +118,9 @@ In this research, three different features extractors from \textit{ski-image} li
 \begin{itemize}
 	\item \textit{CENSURE}\cite{CENSURE} - the newest algorithm from all used in the experiment. Its undeniably biggest advantage is fast computing time which makes him an aspiring one to be appropriate for our goal. Unfortunately CENSURE is able to find only key points but not descriptors on the picture. To retrieve the descriptors, some other descriptors extractor has to be used. In our implementation descriptors has been acquired with usage of BRIEF. 
 	
-	\item \textit{BRIEF}\cite{BRIEF} - Binary Robust Independent Elementary Features is an efficient feature point descriptor. It is highly discriminative even when using relatively few bits and is computed using simple intensity difference tests[]. The main disadvantage of this extractor is its inability to sensible dealing with images rotations.
+	\item \textit{BRIEF} - Binary Robust Independent Elementary Features is an efficient feature point descriptor. It is highly discriminative even when using relatively few bits and is computed using simple intensity difference tests\cite{BRIEF}. The main disadvantage of this extractor is its inability to sensible dealing with images rotations.
 	
-	\item \textit{ORB}\cite{ORB} - Oriented FAST\cite{FAST} and rotated BRIEF is a feature detector and binary descriptor extractor. It is based on FAST key point detector and modified BRIEF. In this algorithm the problem of images rotations has been solved and it is supposed to work well. Because of its ability to fast computing the algorithm seems to be appropriate to use for real-time applications. Considering described features of BRIEF we found it to be relevant for our goal.
+	\item \textit{ORB} - Oriented FAST\cite{FAST} and rotated BRIEF is a feature detector and binary descriptor extractor. It is based on FAST key point detector and modified BRIEF.\cite{ORB} In this algorithm the problem of images rotations has been solved and it is supposed to work well. Because of its ability to fast computing the algorithm seems to be appropriate to use for real-time applications. Considering described features of BRIEF we found it to be relevant for our goal.
 \end{itemize}
 
 \subsection{Postprocessing}
@@ -131,9 +128,9 @@ In this research, three different features extractors from \textit{ski-image} li
 Between features extraction and classifier learning, extracted data are required to be processed and improved to become more reliable. For this step, 2 kinds of normalization has been implemented as follows:
 
 \begin{itemize}
-	\item \textit{Normalize} \cite{PREPROCESSING}  - rescales the vector for each sample to have unit norm, independently of the distribution of the samples.
+	\item \textit{Normalize}  - rescales the vector for each sample to have unit norm, independently of the distribution of the samples\cite{PREPROCESSING}.
 	
-	\item \textit{Standard Scaler} \cite{PREPROCESSING}  - removes the mean and scales the data to unit variance. However, the outliers have an influence when computing the empirical mean and standard deviation which shrink the range of the feature values. Standard Scaler unfortunately cannot guarantee balanced feature scales in the presence of outliers.
+	\item \textit{Standard Scaler}  - removes the mean and scales the data to unit variance. However, the outliers have an influence when computing the empirical mean and standard deviation which shrink the range of the feature values. Standard Scaler unfortunately cannot guarantee balanced feature scales in the presence of outliers \cite{PREPROCESSING}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -174,7 +171,7 @@ This method has a significant disadvantage. Vectors received by the classifier m
 
 \section{EXPERIMENT AND RESULTS}
 
-During the research the successive steps has been added to the algorithm. As a result, at some steps we decided to abandon working with some feature extractors because of their unsatisfying accuracy in comparison to the others. The table containing the results with the percentage values of correct recognition has been presented below.
+During the research the successive steps has been added to the algorithm. As a result, at some steps we decided to abandon working with some feature extractors because of their unsatisfying accuracy in comparison to the others. The table containing the results with the percentage values of correct recognition at every step has been presented below.
 
 
 %Wykresy dla danych z Politechniki Śląskiej i dla naszych.
@@ -182,7 +179,7 @@ During the research the successive steps has been added to the algorithm. As a r
 	\centering
 	\begin{tabular}{|c|c|>{\centering}p{1.55cm}|>{\centering}p{1.55cm}|>{\centering}p{1.25cm}|>{\centering}p{1.25cm}|p{2cm}|}
 		\cline{3-7}
-		\multicolumn{2}{ c| }{}& Descriptors & Anisotropic filtering & Standard Scaler & Gaussian blur & Normalization \\
+		\multicolumn{2}{ c| }{}& descriptors & anisotropic filtering & Standard Scaler & Gaussian blur & normalization \\
 		\hline
 		\multirow{3}{*}{ \rotatebox[origin=c]{90}{\parbox[c]{3.5cm}{\centering ORB} }} & \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering points}} & 51.72\% & 60.34\% & 91.38\% & 94.84\% & \multicolumn{1}{c|}{ 96.55\% } \\
 		\cline{2-7}
@@ -237,7 +234,10 @@ During the research the successive steps has been added to the algorithm. As a r
 	\end{axis}
 \end{tikzpicture}
 
+
 The final version of the implemented algorithm has been tested at three different data sets mentioned before. The results are presented below.
+\\
+
 
 \begin{table}[H]
 	\centering
@@ -265,11 +265,11 @@ The final version of the implemented algorithm has been tested at three differen
 
 \section{CONCLUSION AND PERSPECTIVES}
 
-Among all used features extractors ORB occurred to be the most effective for described problem. Probably, its ability to dealing with rotations had a big impact at obtained results. The best method of learning the classifier occurred to be the way of learning by points. Algorithms used at every next steps to improve the result really improved the accuracy. Adding Standard Scaler was a crucial step and had significant impact at the result.
+Among all used features extractors ORB occurred to be the most effective for described problem. Probably, its ability to dealing with rotations had a big impact at obtained results. The best method of learning the classifier occurred to be learning by points. Furthermore, sccessively added algorithms at following steps significantly improved the result. Adding Standard Scaler was a crucial step and had considerable impact at the final accuracy.
 
-As it can be seen on the table 2, the algorithm works satisfying for gestures on plain background. In case of adding distorting background like eg. check shirt, the working of algothirm leaves a lot to be desired and that should be solved in the nearest future.
+As it can be seen on the table 2, the algorithm works satisfying for gestures on plain background. In case of adding distorting background eg. check shirt, the working of algorithm leaves a lot to be desired and that should be solved in the nearest future.
 
-To sum up, we managed to implement an algorithm which can pose a good basis to continue this research. In this version, recognition of static gestures on plain background works perfectly fine. For this moment, the next problem which could be solved is imppplementation of recognition of moving signs and elimination the problem of background. To further improve the accuracy it would be good idea to impelemtn special classifier only for mistaken gestures.
+To sum up, we managed to implement an algorithm which can pose a good basis to continue this research. In this version, recognition of static gestures on plain background works perfectly fine. In the nearest future the problem which could be solved is implementation of recognition of moving signs and elimination the problem of background. To further improve the accuracy it would be good idea to implement special classifier only for mistaken gestures.
 
 
 
@@ -282,6 +282,9 @@ To sum up, we managed to implement an algorithm which can pose a good basis to c
 \refefencesize \setlength\baselineskip{5pt}
 %
 
+\bibitem{DEAF} 
+World Health Organization - Deafness and hearing loss,
+\textit{http://www.who.int/news-room/fact-sheets/detail/deafness-and-hearing-loss, July 2018}
 \bibitem{CENSURE} 
 Adam Schmidt, Marek Kraft, Micha\l $ $ Fularz, Zuzanna Domaga\l a 
 \textit{Comparative Assessment of Point Feature Detectors and Descriptors in the Context of Robot Navigation},
