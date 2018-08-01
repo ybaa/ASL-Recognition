@@ -18,6 +18,10 @@
 \usepackage{array,multirow,graphicx}
 \include{pbwlib}
 
+\usepackage{pgfplots}
+
+
+
 %=========================================================================%
 %========================== Author(s) & Title ============================%
 %=========================================================================%
@@ -94,7 +98,7 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.9\textwidth]{Algorithm.png}
-		\caption{Preprocessing data flow}
+		\caption{Data flow}
 		\label{fig:Algorithm}
 	\end{figure} 
 
@@ -179,7 +183,7 @@ During the research the successive steps has been added to the algorithm. As a r
 	\centering
 	\begin{tabular}{|c|c|>{\centering}p{1.55cm}|>{\centering}p{1.55cm}|>{\centering}p{1.25cm}|>{\centering}p{1.25cm}|p{2cm}|}
 		\cline{3-7}
-		\multicolumn{2}{ c| }{}& descriptors & anisotropic filtering & Standard Scaler & Gaussian blur & normalization \\
+		\multicolumn{2}{ c| }{}& Descriptors & Anisotropic filtering & Standard Scaler & Gaussian blur & Normalization \\
 		\hline
 		\multirow{3}{*}{ \rotatebox[origin=c]{90}{\parbox[c]{3.5cm}{\centering ORB} }} & \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering points}} & 51.72\% & 60.34\% & 91.38\% & 94.84\% & \multicolumn{1}{c|}{ 96.55\% } \\
 		\cline{2-7}
@@ -203,6 +207,36 @@ During the research the successive steps has been added to the algorithm. As a r
 	\caption{Research results by adding algorithm steps}
 	\label{tab:results_by_steps}
 \end{table}
+
+\begin{tikzpicture}
+	\begin{axis}[
+			title={ORB},
+			height=8cm, width=0.9*\textwidth,
+			bar width=0.4cm,
+			symbolic x coords={Descriptors, Anisotropic filtering, Standard Scaler, Gaussian blur, normalization, kot},
+			x tick label style={rotate=45,anchor=east},
+			ylabel={\%},
+			enlargelimits=0.15,
+			legend style={at={(0.5,-0.35)},
+				anchor=north,legend columns=-1},
+			ybar interval=0.9,
+		]
+		\addplot[draw=none, fill=blue!30]
+			coordinates {
+				(Descriptors, 51.72)(Anisotropic filtering, 60.34)(Standard Scaler, 91.38)(Gaussian blur, 94.84)(normalization, 96.55)(kot,0)
+			};
+		\addplot[draw=none, fill=red!30]
+			coordinates {
+				(Descriptors, 13.79)(Anisotropic filtering, 13.79)(Standard Scaler, 12.07)(Gaussian blur, 13.79)(normalization, 12.07)(kot,0)
+			};
+		\addplot[draw=none, fill=green!30]
+			coordinates {
+				(Descriptors, 13.79)(Anisotropic filtering, 13.79)(Standard Scaler, 13.79)(Gaussian blur, 22.41)(normalization, 25.86)(kot,0)
+			};
+		\legend{points, combined, vector}
+	
+	\end{axis}
+\end{tikzpicture}
 
 The final version of the implemented algorithm has been tested at three different data sets mentioned before. The results are presented below.
 
