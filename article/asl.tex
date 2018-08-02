@@ -54,7 +54,7 @@
 
 	Nowadays, using technology to solve medical issues is becoming a common practice. Constant and fast development of science and growing popularity of machine learning allow for creating technologically advanced appliances and complex algorithms which are aimed at helping people. Sign language recognition is an interesting and significant issue strictly connected with both machine learning and medical technology. People with disabling hearing loss pose X\% of the whole society\cite{DEAF}. In the past there were no technical possibilities to facilitate their lives and communication ways. Now it is still challenging but possible so we attempted to solve this issue. 
 
-	In this work we decided to experiment with different features extraction and learning algorithms and pay particular attention on image processing. Moreover the scope of this work includes also checking the impact of background and hands rotations on received accuracy based on usage 2 completely different data sets.
+	In this work we decided to experiment with different features extraction and learning algorithms and pay particular attention on image processing. Moreover the scope of this work includes also checking the impact of background and hands rotations on received accuracy based on usage two completely different data sets.
 	
 	Our approach to this problem at the current stage is based on recognition of single letters from American sign language alphabet. One of the crucial assumptions of this work is recognition of images taken with average-quality camera because the algorithm which has been implemented should be available for everyone for example by a build-in camera in mobile phone or computer.
 	
@@ -101,7 +101,7 @@
 
 \subsection{Preprocessing}
 	
-	To prepare the set of images and improve received results Gaussian blur and anisotropic filtering has been used. Gaussian blur is a method of modification the image with Gaussian function. It is commonly used to reduce image noise and reduce details. Anisotropic filtering is a technique of enhancing the image quality and edges sharpening. In our work we used Gaussian blur to avoid recognition of unimportant and excess points which potentially could be found by the algorithm. At the same time, to sharpen the shape of hand and to not lose the main shape of the gesture anisotropic filtering has been applied.
+	To prepare the set of images and improve received results Gaussian blur and anisotropic filtering has been used. Gaussian blur is a method of modification the image with Gaussian function. It is commonly used to reduce image noise and details. Anisotropic filtering is a technique of enhancing the image quality. In our work we used Gaussian blur to avoid recognition of unimportant and excess points which potentially could be found by the algorithm. At the same time, to sharpen the shape of hand and to not lose the main shape of the gesture anisotropic filtering has been applied.
 	
 	
 	\begin{figure}[H]
@@ -125,7 +125,7 @@ In this research, three different features extractors from \textit{ski-image} li
 
 \subsection{Postprocessing}
 
-Between features extraction and classifier learning, extracted data are required to be processed and improved to become more reliable. For this step, 2 kinds of normalization has been implemented as follows:
+Between features extraction and classifier learning, extracted data are required to be processed and improved to become more reliable. For this step, two kinds of normalization has been implemented as follows:
 
 \begin{itemize}
 	\item \textit{Normalize}  - rescales the vector for each sample to have unit norm, independently of the distribution of the samples\cite{PREPROCESSING}.
@@ -160,9 +160,9 @@ This method has a significant disadvantage. Vectors received by the classifier m
 
 \section{DATA SETS}
 
-	In this experiment two different data sets has been used. The first one has been downloaded from the website of Silesian University of Technology[czy tu powinien byc odnosnik do tego zbioru?]. It consists of 899 images of gestures from American aplhabet form A to Y excluding J. Letters 'Z' and 'J' are moving gestures and it is impossible to show them on single picture. This data set contains images with uncontrolled background and lightning conditions, different angle of hand rotations form observer perspective and different resolution. Images are oriented both vertically and horizontally.
+	In this experiment two different data sets has been used. The first one has been downloaded from the website of Silesian University of Technology. It consists of 899 images of gestures from American aplhabet form A to Y excluding J. Letters 'Z' and 'J' are moving gestures and it is impossible to show them on a single picture. This data set contains images with uncontrolled background and lightning conditions, different angle of hand rotations form observer perspective and different resolution. Images are oriented both vertically and horizontally.
 	
-	The second data set used in the experiment is a self-made set of images which has been created in possibly similar lightning condition. On each image only hands at uniform, plain background has been shown. Each image has exactly the same, high resolution and all of them are oriented horizontally. The set contains images of gestures of all American sign alphabet also with 'J' and 'Z' excluded.
+	The second data set used in the experiment is a self-made set of images which has been created in possibly similar lightning condition. On each image only hands at uniform, plain background has been shown. Each image has exactly the same height, resolution and all of them are oriented horizontally. The set contains images of gestures of all American sign alphabet also with 'J' and 'Z' excluded.
 
 
 %=========================================================================%
