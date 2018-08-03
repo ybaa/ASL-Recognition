@@ -52,7 +52,7 @@
 
 \section{INTRODUCTION}
 
-	Nowadays, using technology to solve medical issues is becoming a common practice. Constant and fast development of science and the growing popularity of machine learning allow for creating technologically advanced appliances and complex algorithms which are aimed at helping people. Sign language recognition is an interesting and a significant issue strictly connected with both machine learning and medical technology. People with disabling hearing loss pose X\% of the whole society\cite{DEAF}. In the past there were no technical possibilities to facilitate their lives and communication ways. Now it is still challenging but more possible so we have attempted to solve this issue. 
+	Nowadays, using technology to solve medical issues is becoming a common practice. Constant and fast development of science and the growing popularity of machine learning allow for creating technologically advanced appliances and complex algorithms which are aimed at helping people. Sign language recognition is an interesting and a significant issue strictly connected with both machine learning and medical technology. People with disabling hearing loss pose 5\% of the whole society\cite{DEAF}. In the past there were no technical possibilities to facilitate their lives and communication ways. Now it is still challenging but more possible so we have attempted to solve this issue. 
 
 	In this work, we decided to experiment with different features extraction and learning algorithms and pay particular attention to image processing. Moreover the scope of this work includes also checking the impact of background and hands rotations on received accuracy based on use of two completely different data sets.
 	
@@ -120,7 +120,7 @@ In this research, three different features extractors from \textit{ski-image} li
 	
 	\item \textit{BRIEF} - Binary Robust Independent Elementary Features is an efficient feature point descriptor. It is highly discriminative even when using relatively few bits and is computed using simple intensity difference tests\cite{BRIEF}. The main disadvantage of this extractor is its inability to sensible dealing with images rotations.
 	
-	\item \textit{ORB} - Oriented FAST\cite{FAST} and rotated BRIEF is a feature detector and binary descriptor extractor. It is based on FAST key point detector and modified BRIEF.\cite{ORB} In this algorithm the problem of images rotations has been solved and it is supposed to work well. Because of its ability to fast computing the algorithm seems to be appropriate to use for real-time applications. Considering described features of BRIEF we found it to be relevant for our goal.
+	\item \textit{ORB} - Oriented FAST\cite{FAST} and rotated BRIEF is a feature detector and binary descriptor extractor. It is based on FAST key point detector and modified BRIEF\cite{ORB}. In this algorithm the problem of images rotations has been solved and it is supposed to work well. Because of its ability to fast computing the algorithm seems to be appropriate to use for real-time applications. Considering described features of BRIEF we found it to be relevant for our goal.
 \end{itemize}
 
 \subsection{Postprocessing}
