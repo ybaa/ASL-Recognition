@@ -1,0 +1,315 @@
+%& --translate-file=cp1250pl
+\documentclass[11pt,a4paper]{article}
+\usepackage[left=3.5cm, right=4cm, bottom=6.65cm, top=5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{setspace}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{times}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{array,multirow,graphicx}
+\usepackage{pgfplots}
+\include{pbwlib}
+
+%=========================================================================%
+%========================== Author(s) & Title ============================%
+%=========================================================================%
+
+\begin{document}
+%
+\Booktitle{International Students Workshop 2018}
+%
+\Keywords{american sign language, images recognition, machine learning}
+%
+
+\noindent Mi\l osz BIA\L CZAK\footnote{\noindent Wroc\l aw University of Science and Technology, Poland\label{pwr1}} \\
+%
+\noindent Martyna \L AGO\.ZNA\textsuperscript{\ref{pwr1}} \\[7pt]
+%
+\Title{AMERICAN SIGN LANGUAGE RECOGNITION}
+
+
+%=========================================================================%
+%============================== Abstract =================================%
+%=========================================================================%
+
+\Abstract{
+	What if the fast development of computer science, especially machine learning, could help disabled people? In fact, it can and this is the topic to which the research described in this paper has been devoted. Deaf-mute people are the part of our society and it would be a great convenience both for them and speaking people which would allow for a better communication using technology. In this paper, the results of the research concerning recognition of sign language has been provided. The research includes experimenting with the images transformations and use of different learning and features detecting algorithms to obtain the best quality of signs recognition. In addition, the part of this work has been also the impact of the background and different hands rotation on accuracy.
+}
+
+
+%=========================================================================%
+%=========================== INTRODUCTION ================================%
+%=========================================================================%
+
+\section{INTRODUCTION}
+
+	Nowadays, using technology to solve medical issues is becoming a common practice. Constant and fast development of science and the growing popularity of machine learning allow for creating technologically advanced appliances and complex algorithms which are aimed at helping people. Sign language recognition is an interesting and a significant issue strictly connected with both machine learning and medical technology. People with disabling hearing loss pose 5\% of the whole society\cite{DEAF}. In the past there were no technical possibilities to facilitate their lives and communication ways. Now it is still challenging but more possible so we have attempted to solve this issue. 
+
+	In this work, we decided to experiment with different features extraction and learning algorithms and pay particular attention to image processing. Moreover the scope of this work includes also checking the impact of background and hands rotations on received accuracy based on use of two completely different data sets.
+	
+	Our approach to this problem at the current stage is based on recognition of single letters from American sign language alphabet. One of the crucial assumptions of this work is recognition of images taken with average-quality camera because the algorithm which has been implemented should be available for everyone, for example by a build-in camera in mobile phone or computer.
+	
+	
+	
+	
+	
+
+	
+%=========================================================================%
+%========================= PROBLEM FORMULATION ===========================%
+%=========================================================================%
+
+\section{PROBLEM FORMULATION}
+
+	The objective of this work is to create an algorithm which recognizes static gestures of single letters from American sign language alphabet with the highest possible accuracy. The algorithm should be given an image on input and the result should be returned as recognized letter on string type. To implement the algorithm, it is necessary to consider the problems as follows:
+\begin{itemize}	
+\item finding crucial features on the picture
+
+\item emphasizing of hand features
+	
+\item  finding satisfying way of learning the algorithm.
+\end{itemize}
+
+
+
+
+
+
+
+%=========================================================================%
+%============================= ALGORITHMS ================================%
+%=========================================================================%
+
+\section{ALGORITHMS}
+
+	In this section, the algorithms used in this work have been described.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Algorithm.png}
+		\caption{Data flow}
+		\label{fig:Algorithm}
+	\end{figure} 
+
+\subsection{Preprocessing}
+	
+	To prepare the set of images and improve received results Gaussian blur and anisotropic filtering has been used. Gaussian blur is a method of modification the image with Gaussian function. It is commonly used to reduce image noise and details. Anisotropic filtering is a technique of enhancing the image quality. In our work, we used Gaussian blur to avoid recognition of unimportant and excess points which potentially could be found by the algorithm. At the same time, to sharpen the shape of the hand and to not lose the main shape of the gesture anisotropic filtering has been applied.
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Preprocessing.png}
+		\caption{Preprocessing data flow}
+		\label{fig:Preprocessing}
+	\end{figure}
+
+\subsection{Features extraction}
+
+In this research, three different features extractors from \textit{ski-image} library has been used. The purpose of using many extractors was finding the best one in this specific problem. Used feature extraction algorithms are:
+
+\begin{itemize}
+	\item \textit{CENSURE}\cite{CENSURE} - the newest algorithm from all used in the experiment. Its undeniably biggest advantage is fast computing time, which makes him an aspiring one to be appropriate for our goal. Unfortunately CENSURE is able to find only key points but not descriptors (methods to encode information  about  an  image  patch  around  a  detected  keypoint\cite{DESCRIPTORS}) on the picture.  To retrieve the descriptors, some other descriptors extractor has to be used. In our implementation descriptors has been acquired with use of BRIEF. 
+	
+	\item \textit{BRIEF} - Binary Robust Independent Elementary Features is an efficient feature point descriptor. It is highly discriminative even when using relatively few bits and is computed using simple intensity difference tests\cite{BRIEF}. The main disadvantage of this extractor is its inability to sensible dealing with images rotations.
+	
+	\item \textit{ORB} - Oriented FAST\cite{FAST} and rotated BRIEF is a feature detector and binary descriptor extractor. It is based on FAST key point detector and modified BRIEF\cite{ORB}. In this algorithm the problem of images rotations has been solved and it is supposed to work well. Because of its ability to fast computing the algorithm seems to be appropriate to use for real-time applications. Considering described features of BRIEF we found it to be relevant for our goal.
+\end{itemize}
+
+\subsection{Postprocessing}
+
+Between features extraction and classifier learning, extracted data are required to be processed and improved to become more reliable. For this step, two kinds of normalization have been implemented as follows:
+
+\begin{itemize}
+	\item \textit{Normalize}  - rescales the vector for each sample to have unit norm, independently of the distribution of the samples\cite{PREPROCESSING}.
+	
+	\item \textit{Standard Scaler}  - removes the mean and scales the data to unit variance. However, the outliers have an influence when computing the empirical mean and standard deviation which shrink the range of the feature values. Standard Scaler unfortunately cannot guarantee balanced feature scales in the presence of outliers \cite{PREPROCESSING}.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Postprocessing.png}
+	\caption{Posteprocessing data flow}
+	\label{fig:Posteprocessing}
+\end{figure}
+
+\subsection{Learning}
+
+Support Vector Machines (SVMs) are a set of related methods for supervised learning, applicable to both classification and regression problems. A SVM classifiers create a maximum-margin hyperplane that lies in a transformed input space and splits the example classes, while maximizing the distance to the nearest cleanly split examples. The parameters of the solution hyperplane are derived from a quadratic programming optimization problem\cite{SVM1}. In this research methods has been used as follows:
+
+\begin{itemize}
+	\item vector - classifier learns with use of vector of descriptors retrieved from the picture and the information about the correct letter on the image. 
+This method has a significant disadvantage. Vectors received by the classifier must have exactly the same length which as a consequence, extorts cutting the longer ones and ignoring the ones that are too short.
+	
+	\item points - classifier learns by processing descriptor after descriptor and the information about related letter from the picture. This way of learning makes the algorithm independent from the data vector length.
+	
+	\item combined - the output from both vector and points classifiers are taken into consideration. Classifier learns by taking those outputs and the information about correct answer.
+	
+\end{itemize}
+
+%=========================================================================%
+%================================ DATA SETS ==============================%
+%=========================================================================%
+
+\section{DATA SETS}
+
+	In this experiment two different data sets have been used. The first one has been downloaded from the website of Silesian University of Technology. It consists of 899 images of gestures from American aplhabet form A to Y excluding J. Letters 'Z' and 'J' are moving gestures and it is impossible to show them on a single picture. This data set contains images with uncontrolled background and lightning conditions, different angle of hand rotations form observer perspective and different resolution. Images are oriented both vertically and horizontally.
+	
+	The second data set used in the experiment is a self-made set of images which has been created in possibly similar lightning condition. On each image only hands at uniform, plain background has been shown. Each image has exactly the same height, resolution and all of them are oriented horizontally. The set contains images of gestures of all American sign alphabet also with 'J' and 'Z' excluded.
+
+
+%=========================================================================%
+%======================== RESULTS OF EXPERIMENTS =========================%
+%=========================================================================%
+
+\section{EXPERIMENT AND RESULTS}
+
+During the research the successive steps have been added to the algorithm. As a result, at some steps we decided to abandon working with some feature extractors because of their unsatisfying accuracy in comparison to the others. The table containing the results with the percentage values of correct recognition at every step is presented below.
+
+
+%Wykresy dla danych z Politechniki Śląskiej i dla naszych.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|>{\centering}p{1.55cm}|>{\centering}p{1.55cm}|>{\centering}p{1.25cm}|>{\centering}p{1.25cm}|p{2cm}|}
+		\cline{3-7}
+		\multicolumn{2}{ c| }{}& descriptors & anisotropic filtering & Standard Scaler & Gaussian blur & normalization \\
+		\hline
+		\multirow{3}{*}{ \rotatebox[origin=c]{90}{\parbox[c]{3.5cm}{\centering ORB} }} & \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering points}} & 51.72\% & 60.34\% & 91.38\% & 94.84\% & \multicolumn{1}{c|}{ 96.55\% } \\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.8cm}{\centering combined}} & 13.79\% & 13.79\% & 12.07\% & 13.79\% & \multicolumn{1}{c|}{ 12.07\% } \\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering vector}} & 13.79\% & 13.79\% & 13.79\% & 22.41\% & \multicolumn{1}{c|}{ 25.86\% } \\
+		\hline
+		\multirow{3}{*}{ \rotatebox[origin=c]{90}{\parbox[c]{3.5cm}{\centering CENSURE} }} & \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering points}} & 20.69\% & 22.41\% & 15.52\% & 12.07\% & \multicolumn{1}{c|}{ -} \\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.8cm}{\centering combined}} & 13.79\% & 18.97\% & 15.52\% & 5.17\% & \multicolumn{1}{c|}{ -} \\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering vector}} & 8.61\% & 1.72\% & 0.00\% & 1.72\% & \multicolumn{1}{c|}{ -} \\
+		\hline
+		\multirow{3}{*}{ \rotatebox[origin=c]{90}{\parbox[c]{3.5cm}{\centering BRIEF} }} & \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering points}} & 15.52\% & - & - & - & \multicolumn{1}{c|}{ -}\\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.8cm}{\centering combined}} & 15.52\% & - & - & - & \multicolumn{1}{c|}{ -} \\
+		\cline{2-7}
+		& \rotatebox[origin=c]{90}{\parbox[c]{1.5cm}{\centering vector}} & 0.00\% & - & - & - & \multicolumn{1}{c|}{ -} \\
+		\hline
+	\end{tabular}
+	\caption{Results depended on adding next steps to the algorithm}
+	\label{tab:results_by_steps}
+\end{table}
+
+\begin{tikzpicture}
+	\begin{axis}[
+			title={ORB},
+			height=8cm, width=0.9*\textwidth,
+			bar width=0.4cm,
+			symbolic x coords={Descriptors, Anisotropic filtering, Standard Scaler, Gaussian blur, normalization, kot},
+			x tick label style={rotate=45,anchor=east},
+			ylabel={\%},
+			enlargelimits=0.15,
+			legend style={at={(0.5,-0.35)},
+				anchor=north,legend columns=-1},
+			ybar interval=0.9,
+		]
+		\addplot[draw=none, fill=blue!30]
+			coordinates {
+				(Descriptors, 51.72)(Anisotropic filtering, 60.34)(Standard Scaler, 91.38)(Gaussian blur, 94.84)(normalization, 96.55)(kot,0)
+			};
+		\addplot[draw=none, fill=red!30]
+			coordinates {
+				(Descriptors, 13.79)(Anisotropic filtering, 13.79)(Standard Scaler, 12.07)(Gaussian blur, 13.79)(normalization, 12.07)(kot,0)
+			};
+		\addplot[draw=none, fill=green!30]
+			coordinates {
+				(Descriptors, 13.79)(Anisotropic filtering, 13.79)(Standard Scaler, 13.79)(Gaussian blur, 22.41)(normalization, 25.86)(kot,0)
+			};
+		\legend{points, combined, vector}
+	
+	\end{axis}
+\end{tikzpicture}
+
+
+The final version of the implemented algorithm has been tested at three different data sets mentioned before. The results are presented below.
+\\
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|p{5cm}|c|c|c|}
+		\cline{1-4}
+		\multirow{2}{*}{ datasets } & \multicolumn{3}{ |c| }{ORB} \\
+		\cline{2-4}
+		& points & combined & vector\\
+		\cline{1-4}
+		Our set of numbers & 96.55\% & 12.07\% & 25.86\% \\
+		\cline{1-4}
+		Our set of alphabet & 72.90\% & 3.23\% & 12.26\% \\
+		\cline{1-4}
+		Set of Silesian University of Technology alphabet & 27.36\% & 3.48\% & 2.49\% \\
+		\cline{1-4}
+	\end{tabular}
+	\caption{Results depended on data sets}
+	\label{tab:results_by_datasets}
+\end{table} 
+
+
+%=========================================================================%
+%============================== CONCLUSION ===============================%
+%=========================================================================%
+
+\section{CONCLUSION AND PERSPECTIVES}
+
+Among all used features extractors ORB occurred to be the most effective for described problem. Probably, its ability to dealing with rotations had a big impact at obtained results. The best method of learning the classifier occurred to be learning by points. Furthermore, sccessively added algorithms at following steps significantly improved the result. Adding Standard Scaler was a crucial step and had considerable impact on the final accuracy.
+
+As it can be seen on the table 2, the algorithm works satisfying for gestures on the plain background. In case of adding distorting background e.g. check shirt, the working of algorithm leaves a lot to be desired and that should be solved in the nearest future.
+
+To sum up, we managed to implement an algorithm which can pose a good basis to continue this research. In this version, recognition of static gestures on plain background works perfectly fine. In the nearest future the problem which could be solved is implementation of recognition of moving signs and elimination the problem of the background. To further improve the accuracy, it would be a good idea to implement special classifier only for mistaken gestures.
+
+
+
+
+%=========================================================================%
+%============================== BIBLIOGRAPHY =============================%
+%=========================================================================%
+
+\begin{thebibliography}{99}
+\refefencesize \setlength\baselineskip{5pt}
+%
+
+\bibitem{DEAF} 
+World Health Organization - Deafness and hearing loss,
+\textit{http://www.who.int/news-room/fact-sheets/detail/deafness-and-hearing-loss, July 2018}
+\bibitem{CENSURE} 
+Adam Schmidt, Marek Kraft, Micha\l $ $ Fularz, Zuzanna Domaga\l a 
+\textit{Comparative Assessment of Point Feature Detectors and Descriptors in the Context of Robot Navigation},
+Journal of Automation, Mobile Robotics \& Intelligent Systems vol.7 2013.
+\bibitem{DESCRIPTORS} 
+Philip Lee, Aditya Srinivas Timmaraju 
+\textit{Learning Binary Descriptors from Images}
+\bibitem{BRIEF} 
+Michael Calonder, Vincent Lepetit, Christoph Strecha, and Pascal Fua, 
+\textit{BRIEF: Binary Robust Independent Elementary Features}, 11th European Conference on Computer Vision (ECCV), Heraklion, Crete. LNCS Springer, September 2010.
+\bibitem{ORB} 
+Ethan Rublee, Vincent Rabaud, Kurt Konolige and Gary Bradski, 
+\textit{ORB: an efficient alternative to SIFT or SURF}
+ \bibitem{FAST} 
+ Edward Rosten and Tom Drummond
+\textit{Machine learning for high-speed corner detection},
+ 2006.
+\bibitem{PREPROCESSING} 
+Compare the effect of different scalers on data with outliers,
+\textit{http://scikit-learn.org/stable/auto\_examples/preprocessing/plot\_all\_scaling.html},
+July 2018.
+\bibitem{SVM1} Shmilovici Armin \textit{Support Vector Machines} Data Mining and Knowledge Discovery Handbook pp 231-247.
+
+
+\end{thebibliography}
+
+
+\end{document}

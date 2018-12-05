@@ -1,0 +1,107 @@
+
+%=========================================================================%
+%============================== Definitions ==============================%
+%=========================================================================%
+
+\makeatletter
+
+\bibliographystyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proof}{Proof}
+\newtheorem{lemma}{Lemma}
+\newtheorem{property}{Property}
+\newtheorem{corollary}{Corollary}
+\newtheorem{procedure}{Procedure}
+
+
+\def\tablename{Table}
+\def\figurename{Fig.}
+
+\pagestyle{empty}
+
+\renewcommand{\theenumi}{\roman{enumi})}
+%\def\secsize{18pt}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+
+\newcommand\sectionsize{\fontsize{11}{12}\selectfont}
+\newcommand\subsectionsize{\fontsize{9}{12}\selectfont}
+\newcommand\refefencesize{\fontsize{10}{12}\selectfont}
+
+\newcommand{\Booktitle}[1]{
+\begin{flushleft}
+\fontsize{10pt}{0pt}\selectfont \fontfamily{\sfdefault}\noindent \vspace{1pt}  \textbf{#1} \fontfamily{\familydefault} \\[12pt]
+\end{flushleft}}
+
+\newcommand{\Keywords}[1]{
+\begin{flushright}
+{\fontsize{9pt}{0pt}\selectfont \textit{Keywords: #1}} \\[13pt]
+\end{flushright}}
+
+\newcommand{\Title}[1]{
+{\fontsize{13pt}{15pt}\selectfont
+\begin{center}
+ \textbf{#1} \\[36pt]
+\end{center}}}
+
+\newcommand{\Abstract}[1]{\setlength{\parindent}{5mm}
+\parbox{13cm}{ \fontsize{9pt}{12pt}\selectfont \setlength{\parindent}{5mm} #1}}
+
+
+%\renewcommand\caption{\fontsize{9}{1}\selectfont #1}
+
+\newcommand{\captionfonts}{\fontsize{9}{1}\selectfont}
+
+\setlength\abovecaptionskip{0pt}
+\setlength\belowcaptionskip{0pt}
+\newlength\abovetableskip
+\newlength\belowtableskip
+\newlength\abovefigureskip
+\newlength\belowfigureskip
+\setlength\abovetableskip{0pt}
+%
+\setlength\belowtableskip{6pt}
+%
+\setlength\abovefigureskip{6pt}
+%
+\setlength\belowfigureskip{0pt}
+
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{{\captionfonts #1. #2 }}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\captionfonts #1. #2\par}
+  \else
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+
+\renewenvironment{table}{%
+   %\let \@makecaption \@maketablecaption
+   \setlength{\abovecaptionskip}{\abovetableskip}
+   \setlength{\belowcaptionskip}{\belowtableskip}
+   \@float{table}}%
+   {\end@float}
+
+\renewenvironment{figure}{%
+  \setlength{\abovecaptionskip}{\abovefigureskip}
+  \setlength{\belowcaptionskip}{\belowfigureskip} \vspace{0pt}
+  \@float{figure}}%
+  {\end@float}
+
+
+\renewcommand\section{\@startsection {section}{1}{0cm}%
+                                   {24pt}%
+                                   {15pt}%
+                                   {\centering\normalfont\sectionsize}}
+
+\renewcommand\subsection{\@startsection {subsection}{2}{0cm}%
+                                   {9pt}%
+                                   {9pt}%
+                                   {\centering\normalfont\subsectionsize}}
+
+\renewcommand{\@seccntformat}[1]{\csname the#1\endcsname.\quad }
+
+\def\refname{{\sectionsize REFERENCES}}
+\def\refsize{\refefencesize}
